@@ -44,7 +44,6 @@ export const Form = styled.form`
     }
     &:hover{
       background-color: aquamarine;
-      border: none;
     }
 
   }
