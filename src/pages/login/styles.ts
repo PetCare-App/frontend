@@ -49,3 +49,7 @@ export const Form = styled.form`
   }
 
   `;
+
+export const ErrorSpan = styled.span `
+  color: red;
+`
