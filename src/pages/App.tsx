@@ -1,10 +1,15 @@
-import { Box} from '@mui/material'
+import { Box, Paper, useTheme } from '@mui/material';
+import Background from '../components/background';
+import styled from '@emotion/styled';
 
 function App() {
   return (
-      <Box minHeight="100vh">
-      </Box>
-  )
+    <>
+      <Background>
+        <></>
+      </Background>
+    </>
+  );
 }
 
-export default App
+export default App;
