@@ -12,7 +12,6 @@ import { useEffect, useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import styled from '@emotion/styled';
 import LogoImage from './../assets/logo.png';
-import { MobileMenu } from '../components/menu/mobileMenu';
 
 const Logo = styled('img')`
   height: 60px;
