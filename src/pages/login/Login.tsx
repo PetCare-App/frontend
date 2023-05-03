@@ -16,6 +16,7 @@ import { login } from "../../services/loginService";
 import { Link, useNavigate } from "react-router-dom";
 import Background from "../../components/background";
 import logoImg from "../../assets/logo.png";
+import { useState } from "react";
 
 const schema = yup.object().shape({
   email: yup
@@ -35,7 +36,7 @@ interface FormData {
 
 export const Login = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const {
     register,
@@ -52,7 +53,7 @@ export const Login = () => {
         navigate("/dashboard");
       });
     } catch (error) {
-      setError("Nome de usuário ou senha inválidos. Tente novamente.");
+      setError("Usuário ou senha incorretos.");
     }
   };
   return (
