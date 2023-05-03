@@ -1,13 +1,13 @@
+import { TextField } from "@mui/material";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   background-color: white;
+  border-radius: 50px;
 `;
 
 export const Content = styled.div`
@@ -17,14 +17,13 @@ export const Content = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  box-shadow: 0 1px 2px #410b13;
   background-color: white;
   max-width: 350px;
   padding: 20px;
-  border-radius: 5px;
 `;
 
 export const Header = styled.header`
+  margin-top: 15vh;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -36,6 +35,10 @@ export const Header = styled.header`
     font-size: 20px;
     line-height: 24px;
     padding-top: 15px;
+  }
+
+  img {
+    width: 12vh;
   }
 `;
 
@@ -67,6 +70,7 @@ export const ErrorSpan = styled.span`
 `;
 
 export const LabelSignup = styled.label`
+  padding: 8px;
   font-size: 16px;
   color: #676767;
 `;
@@ -77,4 +81,8 @@ export const Strong = styled.strong`
     text-decoration: none;
     color: #676767;
   }
+`;
+
+export const StyledTextField = styled(TextField)`
+  background-color: #d4d4d4;
 `;
