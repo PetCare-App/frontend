@@ -1,4 +1,4 @@
-import { Button, Input } from "@mui/material";
+import { Button, Input, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import {
   Container,
@@ -8,11 +8,14 @@ import {
   Header,
   LabelSignup,
   Strong,
+  StyledTextField,
 } from "./styles";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { login } from "../../services/loginService";
 import { Link } from "react-router-dom";
+import Background from "../../components/background";
+import logoImg from "../../assets/logo.png";
 
 const schema = yup.object().shape({
   email: yup
@@ -47,32 +50,58 @@ export const Login = () => {
     }
   };
 
+  const style = "border-radius: 50px";
   return (
-    <Container>
-      <Header className="header">
-        <span>Por favor digite suas informações de login</span>
-      </Header>
-      <Content>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Input placeholder="E-mail" {...register("email")} />
-          {errors.email && <ErrorSpan>{errors.email.message}</ErrorSpan>}
-          <Input
-            placeholder="Senha"
-            type="password"
-            {...register("password", { required: true })}
-          />
-          {errors.password && <ErrorSpan>{errors.password.message}</ErrorSpan>}
-          <Button disabled={!isValid} variant="contained" type="submit">
-            Login
-          </Button>
-          <LabelSignup>
-            Não tem uma conta?
-            <Strong>
-              <Link to="/register">&nbsp;Registre-se</Link>
-            </Strong>
-          </LabelSignup>
-        </Form>
-      </Content>
-    </Container>
+    <Background>
+      <Container>
+        <Header>
+          <img src={logoImg} alt="Logo" />
+          <span>Por favor digite suas informações de login</span>
+        </Header>
+        <Content>
+          <Form
+            style={{ border: "5px black" }}
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <StyledTextField
+              id="outlined-basic"
+              label="E-mail"
+              variant="outlined"
+              {...register("email")}
+            />
+            {errors.email && <ErrorSpan>{errors.email.message}</ErrorSpan>}
+            <StyledTextField
+              id="outlined-basic"
+              label="Senha"
+              variant="outlined"
+              type="password"
+              {...register("password", { required: true })}
+            />
+            {errors.password && (
+              <ErrorSpan>{errors.password.message}</ErrorSpan>
+            )}
+
+            <Button
+              style={{
+                backgroundColor: "#FAB06A",
+                color: "#fff",
+                width: "31vh",
+              }}
+              disabled={!isValid}
+              variant="contained"
+              type="submit"
+            >
+              Login
+            </Button>
+            <LabelSignup>
+              Não tem uma conta?
+              <Strong>
+                <Link to="/register">&nbsp;Registre-se</Link>
+              </Strong>
+            </LabelSignup>
+          </Form>
+        </Content>
+      </Container>
+    </Background>
   );
 };
