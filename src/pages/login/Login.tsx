@@ -35,6 +35,7 @@ interface FormData {
 
 export const Login = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const {
     register,
@@ -47,11 +48,11 @@ export const Login = () => {
   const onSubmit = async (data: FormData) => {
     try {
       await login(data).then((response) => {
-        console.log("Teste", response.data);
+        console.log(response.data);
         navigate("/dashboard");
       });
     } catch (error) {
-      console.log("Teste 2", error);
+      setError("Nome de usuário ou senha inválidos. Tente novamente.");
     }
   };
   return (
@@ -66,6 +67,7 @@ export const Login = () => {
             style={{ border: "5px black" }}
             onSubmit={handleSubmit(onSubmit)}
           >
+            {error && <div>{error}</div>}
             <StyledTextField
               id="outlined-basic"
               label="E-mail"
