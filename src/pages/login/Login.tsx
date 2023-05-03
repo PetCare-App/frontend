@@ -13,7 +13,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { login } from "../../services/loginService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Background from "../../components/background";
 import logoImg from "../../assets/logo.png";
 
@@ -34,6 +34,8 @@ interface FormData {
 }
 
 export const Login = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -44,13 +46,14 @@ export const Login = () => {
   });
   const onSubmit = async (data: FormData) => {
     try {
-      await login(data);
+      await login(data).then((response) => {
+        console.log("Teste", response.data);
+        navigate("/dashboard");
+      });
     } catch (error) {
-      console.log(error);
+      console.log("Teste 2", error);
     }
   };
-
-  const style = "border-radius: 50px";
   return (
     <Background>
       <Container>
