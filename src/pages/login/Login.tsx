@@ -16,7 +16,7 @@ import { login } from "../../services/loginService";
 import { Link, useNavigate } from "react-router-dom";
 import Background from "../../components/background";
 import logoImg from "../../assets/logo.png";
-import { useState } from "react";
+import {  useState } from "react";
 
 const schema = yup.object().shape({
   email: yup
@@ -49,8 +49,7 @@ export const Login = () => {
   const onSubmit = async (data: FormData) => {
     try {
       await login(data).then((response) => {
-        console.log(response.data);
-        navigate("/dashboard");
+        navigate("/");
       });
     } catch (error) {
       setError("Usuário ou senha incorretos.");
@@ -102,7 +101,7 @@ export const Login = () => {
             <LabelSignup>
               Não tem uma conta?
               <Strong>
-                <Link to="/register">&nbsp;Registre-se</Link>
+                <Link to="/signup">&nbsp;Registre-se</Link>
               </Strong>
             </LabelSignup>
           </Form>

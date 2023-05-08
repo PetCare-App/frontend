@@ -6,8 +6,6 @@ import {
   ErrorSpan,
   Form,
   Header,
-  LabelSignup,
-  Strong,
   StyledTextField,
 } from "./styles";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,6 +13,8 @@ import * as yup from "yup";
 import Background from "../../components/background";
 
 import logoImg from "../../assets/logo.png";
+import { signup } from "../../services/signUpService";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   fullname: yup.string().required("Campo nome é obrigatório"),
@@ -35,6 +35,7 @@ interface FormData {
 }
 
 export const Signup = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -43,15 +44,16 @@ export const Signup = () => {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
-  const onSubmit = async () => {
+  const onSubmit = async (data: FormData) => {
     try {
-      const res = signup(email, senha);
+      await signup(data).then((response) => {
+        navigate("/login");
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const style = "border-radius: 50px";
   return (
     <Background>
       <Container>
