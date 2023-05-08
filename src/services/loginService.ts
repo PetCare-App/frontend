@@ -4,7 +4,7 @@ export const login = async (data: any) => {
   const { email, password } = data;
 
   return await api.post(
-    "/login",
+    "/auth/login",
     { email, password },
   );
 };

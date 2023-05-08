@@ -52,9 +52,9 @@ const Wrapper = styled(Container)<Props>`
 
 const Card = styled(Paper)<Props>`
   ${({ theme }) => css`
-    height: calc(100vh - 250px);
-    width: calc(100vw - 200px);
-    max-width: 1200px;
+    height: calc(100vh - 130px);
+    width: calc(100vw - 150px);
+    max-width: 800px;
     border-radius: 20px;
     ${theme.breakpoints.down("sm")} {
       width: calc(100vw - 50px);
@@ -83,8 +83,8 @@ const Background = ({ children }: { children: JSX.Element | any }) => {
           {children}
         </Card>
       </Box>
-      <Circle color={"orange"} theme={theme} />
-      <Circle color={"blue"} theme={theme} />
+      {/* <Circle color={"orange"} theme={theme} /> */}
+      {/* <Circle color={"blue"} theme={theme} /> */}
     </Wrapper>
   );
 };

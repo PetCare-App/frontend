@@ -6,19 +6,18 @@ import {
   ErrorSpan,
   Form,
   Header,
-  LabelSignup,
-  Strong,
   StyledTextField,
 } from "./styles";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { login } from "../../services/loginService";
-import { Link, useNavigate } from "react-router-dom";
 import Background from "../../components/background";
+
 import logoImg from "../../assets/logo.png";
-import {  useState } from "react";
+import { signup } from "../../services/signUpService";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
+  fullname: yup.string().required("Campo nome é obrigatório"),
   email: yup
     .string()
     .required("Campo e-mail obrigatório")
@@ -32,12 +31,11 @@ const schema = yup.object().shape({
 interface FormData {
   email: string;
   password: string;
+  fullname: string;
 }
 
-export const Login = () => {
+export const Signup = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
-
   const {
     register,
     handleSubmit,
@@ -48,26 +46,36 @@ export const Login = () => {
   });
   const onSubmit = async (data: FormData) => {
     try {
-      await login(data).then((response) => {
-        navigate("/");
+      await signup(data).then((response) => {
+        navigate("/login");
       });
     } catch (error) {
-      setError("Usuário ou senha incorretos.");
+      console.log(error);
     }
   };
+
   return (
     <Background>
       <Container>
         <Header>
           <img src={logoImg} alt="Logo" />
-          <span>Por favor digite suas informações de login</span>
+          <span>Crie sua conta:</span>
         </Header>
         <Content>
           <Form
             style={{ border: "5px black" }}
             onSubmit={handleSubmit(onSubmit)}
           >
-            {error && <div>{error}</div>}
+            <StyledTextField
+              id="outlined-basic"
+              label="Digite seu nome completo"
+              variant="outlined"
+              {...register("fullname")}
+            />
+            {errors.fullname && (
+              <ErrorSpan>{errors.fullname.message}</ErrorSpan>
+            )}
+
             <StyledTextField
               id="outlined-basic"
               label="E-mail"
@@ -96,14 +104,8 @@ export const Login = () => {
               variant="contained"
               type="submit"
             >
-              Login
+              Cadastrar-se
             </Button>
-            <LabelSignup>
-              Não tem uma conta?
-              <Strong>
-                <Link to="/signup">&nbsp;Registre-se</Link>
-              </Strong>
-            </LabelSignup>
           </Form>
         </Content>
       </Container>
