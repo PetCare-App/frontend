@@ -30,18 +30,18 @@ const GetStarted: React.FC = () => {
   }));
 
   return (
-    <CustomBox>
+    <CustomBox id="features">
       <CustomContainer>
         <Box>
           <Typography
             sx={{ fontSize: "35px", color: "white", fontWeight: "700" }}
           >
-            Featured Properties
+            Features
           </Typography>
           <Typography
             sx={{ fontSize: "16px", color: "#ccc", fontWeight: "500", my: 3 }}
           >
-            Everything you need to know about houses!
+            Tudo que você precisa saber sobre nossas funcionalidades!
           </Typography>
 
           <CustomButton

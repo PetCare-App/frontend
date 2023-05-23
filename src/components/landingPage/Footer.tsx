@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
   }));
 
   return (
-    <Box sx={{ py: 10 }}>
+    <Box id="contato" sx={{ py: 10 }}>
       <CustomContainer>
         <CustomContainer>
           <Box>
@@ -49,37 +49,12 @@ const Footer: React.FC = () => {
                 mb: 2,
               }}
             >
-              Products
+              Recursos
             </Typography>
 
-            <FooterLink>Listing</FooterLink>
-            <br />
-            <FooterLink>Properties</FooterLink>
-            <br />
-            <FooterLink>Agents</FooterLink>
-            <br />
-            <FooterLink>Blog</FooterLink>
-          </Box>
-
-          <Box>
-            <Typography
-              sx={{
-                fontSize: "20px",
-                color: "#1C1C1D",
-                fontWeight: "700",
-                mb: 2,
-              }}
-            >
-              Resources
-            </Typography>
-
-            <FooterLink>Our Homes</FooterLink>
-            <br />
-            <FooterLink>Stories</FooterLink>
+            <FooterLink>Histórias</FooterLink>
             <br />
             <FooterLink>Video</FooterLink>
-            <br />
-            <FooterLink>Free Trial</FooterLink>
           </Box>
 
           <Box>
@@ -91,16 +66,16 @@ const Footer: React.FC = () => {
                 mb: 2,
               }}
             >
-              Company
+              Empresa
             </Typography>
 
-            <FooterLink>Partnerships</FooterLink>
+            <FooterLink>Parcerias</FooterLink>
             <br />
-            <FooterLink>Terms of use</FooterLink>
+            <FooterLink>Termos de uso</FooterLink>
             <br />
-            <FooterLink>Privacy</FooterLink>
+            <FooterLink>Privacidade</FooterLink>
             <br />
-            <FooterLink>Sitemap</FooterLink>
+            <FooterLink>Mapa do site</FooterLink>
           </Box>
 
           <Box>
@@ -112,18 +87,7 @@ const Footer: React.FC = () => {
                 mb: 2,
               }}
             >
-              Get in touch
-            </Typography>
-
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#7A7A7E",
-                fontWeight: "500",
-                mb: 2,
-              }}
-            >
-              You’ll find your next home, in any style you prefer.
+              Redes Sociais
             </Typography>
 
             <IconBox>
