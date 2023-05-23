@@ -1,7 +1,7 @@
 import { styled, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
-import houseCard from "../../assets/houseCard.png";
+import sobrenosImg from "../../assets/sobrenos.png";
 
 const Details = () => {
   const CustomBox = styled(Box)(({ theme }) => ({
@@ -63,11 +63,11 @@ const Details = () => {
   }));
 
   return (
-    <Box sx={{ py: 10 }}>
+    <Box id="sobrenos" sx={{ py: 10 }}>
       <Container>
         <CustomBox>
           <ImgContainer>
-            <img src={houseCard} alt="house" style={{ maxWidth: "100%" }} />
+            <img src={sobrenosImg} alt="pets" style={{ maxWidth: "100%" }} />
           </ImgContainer>
 
           <Box>
@@ -80,7 +80,8 @@ const Details = () => {
                 my: 3,
               }}
             >
-              You’ve found a neighborhood you love.
+              O PetCare te ajuda a cuidar do seu pet para vocês aproveitarem
+              mais tempo juntos!
             </Typography>
 
             <Typography
@@ -90,47 +91,13 @@ const Details = () => {
                 lineHeight: "27px",
               }}
             >
-              When you own a home, you commit to living in one location for a
-              period of time. We are here to ensure that this will be a
-              memorable experience for you.
+              O PetCare cria e fornece soluções tecnológicas e inovadoras para
+              facilitar o dia a dia de pessoas que possuem animais de estimação,
+              tornando mais fácil o acompanhamento de informações sobre seu pet
+              entre outros serviços,
             </Typography>
           </Box>
         </CustomBox>
-
-        <TextFlexbox>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <LargeText>2500+</LargeText>
-            <SmallText>Homes For Sale</SmallText>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <LargeText>3000+</LargeText>
-            <SmallText>Properties Rented</SmallText>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <LargeText>3500+</LargeText>
-            <SmallText>Homes Sold</SmallText>
-          </Box>
-        </TextFlexbox>
       </Container>
     </Box>
   );

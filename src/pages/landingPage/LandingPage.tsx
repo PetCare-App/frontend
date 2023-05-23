@@ -1,15 +1,15 @@
-import Details from "../../components/landingPage/Details";
+import Sobrenos from "../../components/landingPage/Sobrenos";
 import Footer from "../../components/landingPage/Footer";
 import GetStarted from "../../components/landingPage/GetStarted";
-import Guide from "../../components/landingPage/Guide";
-import Hero from "../../components/landingPage/Hero";
+import Guia from "../../components/landingPage/Guia";
+import Home from "../../components/landingPage/Home";
 
 function LandingPage() {
   return (
     <>
-      <Hero />
-      <Guide />
-      <Details />
+      <Home />
+      <Guia />
+      <Sobrenos />
       <GetStarted />
       <Footer />
     </>
