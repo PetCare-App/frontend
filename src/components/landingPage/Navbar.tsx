@@ -3,12 +3,13 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
-import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
+import GuideIcon from "@mui/icons-material/FeaturedPlayList";
 import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import HomeIcon from "@mui/icons-material/Home";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import logoImg from "../../assets/logo.png";
+import { Link } from "react-router-dom";
 import { Container } from "@mui/system";
 import CustomButton from "./CustomButton";
 import {
@@ -22,12 +23,20 @@ import {
 } from "@mui/material";
 
 const Navbar: React.FC = () => {
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    section?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const [mobileMenu, setMobileMenu] = useState({
     left: false,
   });
 
   const toggleDrawer = (anchor: string, open: boolean) => (event: any) => {
-    if (event.type === "keydown" && (event.type === "Tab" || event.type === "Shift")) {
+    if (
+      event.type === "keydown" &&
+      (event.type === "Tab" || event.type === "Shift")
+    ) {
       return;
     }
 
@@ -42,20 +51,22 @@ const Navbar: React.FC = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Home", "Features", "Services", "Listed", "Contact"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index === 0 && <HomeIcon />}
-                {index === 1 && <FeaturedPlayListIcon />}
-                {index === 2 && <MiscellaneousServicesIcon />}
-                {index === 3 && <ListAltIcon />}
-                {index === 4 && <ContactsIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {["Home", "Guide", "Services", "Listed", "Contact"].map(
+          (text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index === 0 && <HomeIcon />}
+                  {index === 1 && <GuideIcon />}
+                  {index === 2 && <MiscellaneousServicesIcon />}
+                  {index === 3 && <ListAltIcon />}
+                  {index === 4 && <ContactsIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
       </List>
     </Box>
   );
@@ -129,8 +140,12 @@ const Navbar: React.FC = () => {
         </Box>
 
         <NavbarLinksBox>
-          <NavLink variant="body2">Home</NavLink>
-          <NavLink variant="body2">Features</NavLink>
+          <NavLink onClick={() => scrollToSection("home")} variant="body2">
+            Home
+          </NavLink>
+          <NavLink onClick={() => scrollToSection("guide")} variant="body2">
+            Guide
+          </NavLink>
           <NavLink variant="body2">Services</NavLink>
           <NavLink variant="body2">Listed</NavLink>
           <NavLink variant="body2">Contact</NavLink>
@@ -145,12 +160,16 @@ const Navbar: React.FC = () => {
           gap: "1rem",
         }}
       >
-        <NavLink variant="body2">Sign Up</NavLink>
-        <CustomButton
-          backgroundColor="#0F1B4C"
-          color="#fff"
-          buttonText="Register"
-        />
+        <Link to="/login">
+          <NavLink variant="body2">Login</NavLink>
+        </Link>
+        <Link to="/signup">
+          <CustomButton
+            backgroundColor="#0F1B4C"
+            color="#fff"
+            buttonText="Criar conta"
+          />
+        </Link>
       </Box>
     </NavbarContainer>
   );

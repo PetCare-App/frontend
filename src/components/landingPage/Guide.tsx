@@ -1,12 +1,11 @@
 import { Box, Typography, styled } from "@mui/material";
 import React from "react";
 
-import buyIcon from "../../assets/buy_icon.png";
-import sellIcon from "../../assets/sell_icon.png";
-import rentIcon from "../../assets/rent_icon.png";
-
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import petsIcon from "../../assets/pets.png";
+import reportIcon from "../../assets/report.png";
+import veterinarialIcon from "../../assets/veterinarian.png";
 import CustomButton from "./CustomButton";
+import { Link } from "react-router-dom";
 
 const Guide: React.FC = () => {
   const CustomBox = styled(Box)(({ theme }) => ({
@@ -43,6 +42,7 @@ const Guide: React.FC = () => {
 
   return (
     <Box
+      id="guide"
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -63,7 +63,7 @@ const Guide: React.FC = () => {
         variant="h3"
         sx={{ fontSize: "35px", fontWeight: "bold", color: "#000339", my: 3 }}
       >
-        How it works?
+        Como funciona?
       </Typography>
 
       <CustomBox>
@@ -76,14 +76,14 @@ const Guide: React.FC = () => {
             textAlign: "center",
           }}
         >
-          Everything you need to know when you want to buy, rent or sell - All
-          in one place
+          Tudo o que você precisa saber quando quer cuidar do seu Pet - Tudo em
+          um só lugar
         </Typography>
       </CustomBox>
 
       <GuidesBox>
         <GuideBox>
-          <img src={buyIcon} alt="buyIcon" />
+          <img src={petsIcon} alt="petsIcon" style={{ width: "60px" }} />
           <Typography
             variant="body2"
             sx={{
@@ -93,7 +93,7 @@ const Guide: React.FC = () => {
               my: 1,
             }}
           >
-            Buying Guides
+            Cadastre seu Pet
           </Typography>
           <Box
             sx={{
@@ -102,19 +102,15 @@ const Guide: React.FC = () => {
               justifyContent: "center",
               alignItems: "center",
             }}
-          >
-            <Typography
-              variant="body2"
-              sx={{ fontWeight: "bold", fontSize: "14px", color: "#0689FF" }}
-            >
-              How to buy
-            </Typography>
-            <ArrowRightAltIcon style={{ color: "#0689FF" }} />
-          </Box>
+          ></Box>
         </GuideBox>
 
         <GuideBox>
-          <img src={rentIcon} alt="buyIcon" />
+          <img
+            src={veterinarialIcon}
+            alt="veterinarialIcon"
+            style={{ width: "50px" }}
+          />
           <Typography
             variant="body2"
             sx={{
@@ -124,7 +120,7 @@ const Guide: React.FC = () => {
               my: 1,
             }}
           >
-            Renting Guides
+            Acompanhe seu Pet
           </Typography>
           <Box
             sx={{
@@ -133,19 +129,11 @@ const Guide: React.FC = () => {
               justifyContent: "center",
               alignItems: "center",
             }}
-          >
-            <Typography
-              variant="body2"
-              sx={{ fontWeight: "bold", fontSize: "14px", color: "#0689FF" }}
-            >
-              How to rent
-            </Typography>
-            <ArrowRightAltIcon style={{ color: "#0689FF" }} />
-          </Box>
+          ></Box>
         </GuideBox>
 
         <GuideBox>
-          <img src={sellIcon} alt="buyIcon" />
+          <img src={reportIcon} alt="reportIcon" style={{ width: "50px" }} />
           <Typography
             variant="body2"
             sx={{
@@ -155,7 +143,7 @@ const Guide: React.FC = () => {
               my: 1,
             }}
           >
-            Selling Guides
+            Quadro de Vacinas
           </Typography>
           <Box
             sx={{
@@ -164,24 +152,18 @@ const Guide: React.FC = () => {
               justifyContent: "center",
               alignItems: "center",
             }}
-          >
-            <Typography
-              variant="body2"
-              sx={{ fontWeight: "bold", fontSize: "14px", color: "#0689FF" }}
-            >
-              How to sell
-            </Typography>
-            <ArrowRightAltIcon style={{ color: "#0689FF" }} />
-          </Box>
+          ></Box>
         </GuideBox>
       </GuidesBox>
 
-      <CustomButton
-        backgroundColor="#0F1B4C"
-        color="#fff"
-        buttonText="See Full Guides"
-        guideBtn={true}
-      />
+      <Link to="/signup">
+        <CustomButton
+          backgroundColor="#0F1B4C"
+          color="#fff"
+          buttonText="Cadastre-se já!"
+          guideBtn={true}
+        />
+      </Link>
     </Box>
   );
 };

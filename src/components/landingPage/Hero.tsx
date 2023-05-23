@@ -3,7 +3,7 @@ import { Container } from "@mui/system";
 import React from "react";
 import Navbar from "./Navbar";
 
-import heroImg from "../../assets/hero_illustration.png";
+import homeImg from "../../assets/pet-house.png";
 import CustomButton from "./CustomButton";
 
 export const Hero: React.FC = () => {
@@ -30,7 +30,7 @@ export const Hero: React.FC = () => {
   }));
 
   return (
-    <Box sx={{ backgroundColor: "#E6F0FF", minHeight: "80vh" }}>
+    <Box id="home" sx={{ backgroundColor: "#E6F0FF", minHeight: "80vh" }}>
       <Container>
         <Navbar />
         <CustomBox>
@@ -45,17 +45,15 @@ export const Hero: React.FC = () => {
                 mb: 4,
               }}
             >
-              Welcome to Besnik Agency
+              Bem-vindo à PetCare
             </Typography>
-            <Title variant="h1">
-              Discover a place where you'll love to live.
-            </Title>
+            <Title variant="h1">Your PetCare center</Title>
             <Typography
               variant="body2"
               sx={{ fontSize: "18px", color: "#5A6473", my: 4 }}
             >
-              Be the first to get the best real estate deals before they hit the
-              mass market! Hot foreclosure deals with one simple search!
+              Antes de trazer seu animal de estimação para casa, certifique-se
+              de estar pronto para cuidar dele adequadamente"
             </Typography>
             <CustomButton
               backgroundColor="#0F1B4C"
@@ -67,8 +65,8 @@ export const Hero: React.FC = () => {
 
           <Box sx={{ flex: "1.25" }}>
             <img
-              src={heroImg}
-              alt="heroImg"
+              src={homeImg}
+              alt="homeImg"
               style={{ maxWidth: "100%", marginBottom: "2rem" }}
             />
           </Box>
