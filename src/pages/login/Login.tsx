@@ -99,7 +99,7 @@ export const Login = () => {
               style={{
                 backgroundColor: "#FAB06A",
                 color: "#fff",
-                width: "31vh",
+                width: "45vh",
               }}
               disabled={!isValid}
               variant="contained"

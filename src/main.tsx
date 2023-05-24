@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Login } from "./pages/login/Login";
 import { ProviderContext } from "./context";
 import { Signup } from "./pages/signup/Signup";
+import LandingPage from "./pages/landingPage/LandingPage";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
     path: "/pets/edit",
     element: <App />,
   },
+  {
+    path: "/home",
+    element: <LandingPage />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

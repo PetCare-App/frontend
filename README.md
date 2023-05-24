@@ -10,10 +10,8 @@ npm install
 
 # Execute a aplicação
 
+```bash
 npm run dev
-
-# O servidor inciará na porta:3000 - acesse <http://localhost:5173/>
-
 ```
+# O servidor inciará na porta:5173 - acesse <http://localhost:5173/>
 
-```
