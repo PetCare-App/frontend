@@ -52,13 +52,16 @@ const Wrapper = styled(Container)<Props>`
 
 const Card = styled(Paper)<Props>`
   ${({ theme }) => css`
-    height: calc(100vh - 130px);
+    height: calc(100% - 100px);
+    margin-top: 50px; 
+    margin-bottom: 50px;
     width: calc(100vw - 150px);
     max-width: 800px;
     border-radius: 20px;
+    overflow: auto;
     ${theme.breakpoints.down("sm")} {
       width: calc(100vw - 50px);
-      height: calc(100vh - 50px);
+      height: calc(100% - 50px);
     }
   `}
 `;
