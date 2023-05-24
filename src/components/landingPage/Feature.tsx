@@ -55,7 +55,7 @@ const GetStarted: React.FC = () => {
         <img
           src={homeIllustration}
           alt="illustration"
-          style={{ maxWidth: "100%" }}
+          style={{ width: "200px", maxWidth: "60%" }}
         />
       </CustomContainer>
     </CustomBox>
