@@ -45,20 +45,20 @@ export const Hero: React.FC = () => {
                 mb: 4,
               }}
             >
-              Bem-vindo à PetCare
+              Bem-vindo à plataforma
             </Typography>
-            <Title variant="h1">Your PetCare center</Title>
+            <Title variant="h1">PetCare</Title>
             <Typography
               variant="body2"
               sx={{ fontSize: "18px", color: "#5A6473", my: 4 }}
             >
               Antes de trazer seu animal de estimação para casa, certifique-se
-              de estar pronto para cuidar dele adequadamente"
+              de estar pronto para cuidar dele adequadamente
             </Typography>
             <CustomButton
               backgroundColor="#0F1B4C"
               color="#fff"
-              buttonText="More About Us"
+              buttonText="Saiba mais!"
               heroBtn={true}
             />
           </Box>

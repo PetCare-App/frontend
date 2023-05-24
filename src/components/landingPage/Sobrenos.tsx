@@ -74,7 +74,7 @@ const Details = () => {
             <Divider />
             <Typography
               sx={{
-                fontSize: "35px",
+                fontSize: "30px",
                 color: "#000339",
                 fontWeight: "700",
                 my: 3,
@@ -94,7 +94,7 @@ const Details = () => {
               O PetCare cria e fornece soluções tecnológicas e inovadoras para
               facilitar o dia a dia de pessoas que possuem animais de estimação,
               tornando mais fácil o acompanhamento de informações sobre seu pet
-              entre outros serviços,
+              entre outros serviços.
             </Typography>
           </Box>
         </CustomBox>

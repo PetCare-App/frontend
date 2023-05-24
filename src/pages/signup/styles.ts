@@ -84,5 +84,5 @@ export const Strong = styled.strong`
 `;
 
 export const StyledTextField = styled(TextField)`
-  background-color: #d4d4d4;
+  //background-color: #d4d4d4;
 `;
