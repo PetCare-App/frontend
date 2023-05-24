@@ -8,7 +8,6 @@ import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import HomeIcon from "@mui/icons-material/Home";
 import ContactsIcon from "@mui/icons-material/Contacts";
-import logoImg from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/system";
 import CustomButton from "./CustomButton";
@@ -136,7 +135,6 @@ const Navbar: React.FC = () => {
           >
             {list("left")}
           </Drawer>
-          <NavbarLogo src={logoImg} alt="logo" />
         </Box>
 
         <NavbarLinksBox>

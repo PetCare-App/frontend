@@ -16,7 +16,7 @@ import { login } from "../../services/loginService";
 import { Link, useNavigate } from "react-router-dom";
 import Background from "../../components/background";
 import logoImg from "../../assets/logo.png";
-import {  useState } from "react";
+import { useState } from "react";
 
 const schema = yup.object().shape({
   email: yup
@@ -90,7 +90,7 @@ export const Login = () => {
               style={{
                 backgroundColor: "#FAB06A",
                 color: "#fff",
-                width: "31vh",
+                width: "45vh",
               }}
               disabled={!isValid}
               variant="contained"
