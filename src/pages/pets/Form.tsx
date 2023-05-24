@@ -58,13 +58,10 @@ export const Form = ({isCreate, handleReturnButton, currentPet}: FormProps) => {
 
   const submitEdit = async (data: Pet) => {
     const response = await updatePet(data)
-    console.log('response :>> ', response);
     if (response?.status === 200) {
       handleReturnButton()
     }
   };
-
-  console.log('pet :>> ', pet);
 
   return(
   <>
@@ -162,7 +159,7 @@ export const Form = ({isCreate, handleReturnButton, currentPet}: FormProps) => {
               variant="soft"
 
                 onClick={() => {isCreate ? submitCreate(pet) : submitEdit(pet)}}
-                sx={{  width: '80px' }}
+                sx={{  width: '80px', marginBottom: '20px' }}
               >
                 Salvar
               </Button>

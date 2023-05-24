@@ -14,6 +14,12 @@ export const updatePetService = async (petData: any) => {
     )
   }
 
+  export const deletePetService = async (id: any) => {
+    return await api.delete(
+        `/pets/${id}`
+      )
+    }
+
 export const getPetsService = async (userId: number) => {
   return await api.get(
   `/users/${userId}`

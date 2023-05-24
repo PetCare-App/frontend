@@ -15,9 +15,10 @@ import Cat from './../../assets/cat.png'
 interface DashboardProps {
   handleOpenCreateForm: () => void
   handleOpenEditForm: (pet: Pet) => void
+  handleOpenDeleteConfirmation: (pet: Pet) => void
 }
 
-export const Dashboard = ({handleOpenCreateForm, handleOpenEditForm}: DashboardProps) => {
+export const Dashboard = ({handleOpenCreateForm, handleOpenEditForm, handleOpenDeleteConfirmation}: DashboardProps) => {
   const {pets, getPets} = usePetCareContext()
 
   useEffect(() => {getPets()}, [])
@@ -68,7 +69,7 @@ export const Dashboard = ({handleOpenCreateForm, handleOpenEditForm}: DashboardP
     
             </CardContent>
             <CardActions sx={{display:'flex', flexDirection: 'row', justifyContent: 'space-evenly', padding: '0px'}}>
-            <IconButton onClick={() => handleOpenEditForm(pet)}>
+            <IconButton onClick={() => handleOpenDeleteConfirmation(pet)}>
                 <DeleteIcon sx={{ fontSize: '25px'}}/>
               </IconButton>
             <IconButton onClick={() => handleOpenEditForm(pet)}>

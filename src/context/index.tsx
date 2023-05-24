@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Pet } from '../types/pets';
-import { createPetService, getPetsService, updatePetService } from '../services/pets';
+import { createPetService, deletePetService, getPetsService, updatePetService } from '../services/pets';
 import { User } from '../types/users';
 
 export const PetCareContext = createContext({} as any);
@@ -16,7 +16,6 @@ export function ProviderContext({ children }: any) {
       setPets(response.data.pets)
 
     } catch (error) {
-      console.log('error :>> ', error);
       throw error
     }
     
@@ -45,6 +44,15 @@ export function ProviderContext({ children }: any) {
     }
   }
 
+  const deletePet = async (id: any) => {
+    try {
+      const response = await deletePetService(id);
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+
   
 const states = {
   pets,
@@ -57,7 +65,8 @@ const actions = {
   getPets,
   createPet, 
   setUser,
-  updatePet
+  updatePet,
+  deletePet
 };
 
 
