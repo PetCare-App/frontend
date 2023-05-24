@@ -18,9 +18,10 @@ export const MyPets = () => {
 
   const [pet, setPet] = useState({} as Pet)
 
+  useEffect(() => {getPets()}, [])
+
 
   useEffect(() => {
-    getPets()
     !!isFormOpen &&  !!isCreate ? navigate('/pets/create') : 
     !!isFormOpen &&  !isCreate ? navigate('/pets/edit') :
      navigate('/pets/dashboard')

@@ -1,4 +1,4 @@
-import { Container, Box, IconButton, Avatar, TextField, Typography, Grid, useTheme, css, Stack,   } from '@mui/material'
+import { Container, Box, IconButton, Avatar, TextField, Typography, Grid, useTheme, css, Stack, Alert   } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -12,7 +12,7 @@ import Cat from './../../assets/cat.png'
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Option from '@mui/joy/Option';
-import { Select, Input, FormControl, FormLabel, Alert, Button } from '@mui/joy';
+import { Select, Input, FormControl, FormLabel, Button } from '@mui/joy';
 
 
 interface FormWrapperProps {
