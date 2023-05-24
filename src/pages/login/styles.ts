@@ -60,7 +60,7 @@ export const Form = styled.form`
       border-color: black;
     }
     &:hover {
-      background-color: aquamarine;
+      /* background-color: aquamarine; */
     }
   }
 `;
