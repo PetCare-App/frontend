@@ -12,6 +12,9 @@ import { useEffect, useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import styled from '@emotion/styled';
 import LogoImage from './../assets/logo.png';
+import { MyPets } from './pets/MyPets';
+import { useLocation, useNavigate  } from 'react-router-dom';
+import { usePetCareContext } from '../context';
 
 const Logo = styled('img')`
   height: 60px;
@@ -20,24 +23,36 @@ const Logo = styled('img')`
 
 function App() {
   const theme = useTheme<Theme>();
+  const navigate = useNavigate();
 
   const [isMobile, setIsMobile] = useState(false);
   const [content, setContent] = useState(1);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 600);
+      if(window.screen.width > 600) setIsMobile(false);
+      else setIsMobile(true);
     };
     handleResize();
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
-  const handleMenuButton = () => {
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile]);
+
+  const handleMenuButton = (event: any) => {
+    setAnchorEl(event.currentTarget);
+
     !!isMenuOpen ? setMenuOpen(false) : setMenuOpen(true);
   };
-  console.log('isMenuOpen', isMenuOpen);
+
+  useEffect(() => {
+    if(content == 1) navigate('/pets')
+    if(content == 2) navigate('/')
+  }, [content])
+
+
 
   return (
     <>
@@ -46,6 +61,8 @@ function App() {
           display="flex"
           flexDirection={!isMobile ? 'row' : 'column'}
           height="100%"
+          marginBottom="100px"
+          paddingBottom="100px"
         >
           {!isMobile ? (
             <DesktopMenu content={content} setContent={setContent} />
@@ -65,7 +82,11 @@ function App() {
               {!!isMenuOpen && (
                 <Menu
                   open={isMenuOpen}
-                  onClose={() => setMenuOpen(false)}
+                  onClose={() => {
+                    setAnchorEl(null);
+                    setMenuOpen(false)
+                  }}
+                  anchorEl={anchorEl}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
@@ -79,9 +100,10 @@ function App() {
                     onClick={() => {
                       setContent(1);
                       setMenuOpen(false);
+                      
                     }}
                   >
-                    Início
+                    Meus pets
                   </MenuItem>
                   <MenuItem
                     onClick={() => {
@@ -89,21 +111,15 @@ function App() {
                       setMenuOpen(false);
                     }}
                   >
-                    Meus pets
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      setContent(3);
-                      setMenuOpen(false);
-                    }}
-                  >
-                    opção 3
+                    opção 2
                   </MenuItem>
                 </Menu>
               )}
             </>
           )}
-          <div>content {content}</div>
+          {
+            content == 1 ? (<MyPets />) : <div> Página {content} ainda em construção</div>
+          }
         </Box>
       </Background>
     </>

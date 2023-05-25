@@ -16,7 +16,8 @@ import { login } from "../../services/loginService";
 import { Link, useNavigate } from "react-router-dom";
 import Background from "../../components/background";
 import logoImg from "../../assets/logo.png";
-import { useState } from "react";
+import {  useState } from "react";
+import { usePetCareContext } from "../../context";
 
 const schema = yup.object().shape({
   email: yup
@@ -46,9 +47,17 @@ export const Login = () => {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
+
+  const {setUser} = usePetCareContext()
+
   const onSubmit = async (data: FormData) => {
     try {
       await login(data).then((response) => {
+        const decodedToken = JSON.parse(atob(response.data.token.split('.')[1]));
+        setUser({
+          email: decodedToken.email, 
+          id: decodedToken.sub
+        })
         navigate("/");
       });
     } catch (error) {

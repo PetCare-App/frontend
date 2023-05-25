@@ -28,10 +28,10 @@ export const DesktopMenu = ({ content, setContent }: MenuProps) => {
     <Menu flexDirection="column" width="200px">
       <Logo src={LogoImage} />
       <ListItem>
-        <ListItemButton onClick={() => setContent(1)}>Início</ListItemButton>
+        <ListItemButton onClick={() => setContent(1)}>Meus Pets</ListItemButton>
       </ListItem>
       <ListItem>
-        <ListItemButton onClick={() => setContent(2)}>Meus Pets</ListItemButton>
+        <ListItemButton onClick={() => setContent(2)}>opção 2</ListItemButton>
       </ListItem>
       <ListItem>
         <ListItemButton onClick={() => setContent(3)}>opção 3</ListItemButton>

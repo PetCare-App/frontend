@@ -34,6 +34,7 @@ const Guide: React.FC = () => {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "flex-end",
     marginTop: theme.spacing(5),
     [theme.breakpoints.down("sm")]: {
       margin: theme.spacing(2, 0, 2, 0),
@@ -99,7 +100,7 @@ const Guide: React.FC = () => {
             sx={{
               cursor: "pointer",
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "flex-end",
               alignItems: "center",
             }}
           ></Box>
