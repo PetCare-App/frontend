@@ -98,7 +98,7 @@ export const Signup = () => {
               style={{
                 backgroundColor: "#FAB06A",
                 color: "#fff",
-                width: "45vh",
+                width: "100%",
               }}
               disabled={!isValid}
               variant="contained"

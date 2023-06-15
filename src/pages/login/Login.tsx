@@ -56,7 +56,8 @@ export const Login = () => {
         const decodedToken = JSON.parse(atob(response.data.token.split('.')[1]));
         setUser({
           email: decodedToken.email, 
-          id: decodedToken.sub
+          id: decodedToken.sub,
+          fullname: decodedToken.fullname,
         })
         navigate("/");
       });
@@ -99,7 +100,7 @@ export const Login = () => {
               style={{
                 backgroundColor: "#FAB06A",
                 color: "#fff",
-                width: "45vh",
+                width: "100%",
               }}
               disabled={!isValid}
               variant="contained"
