@@ -32,8 +32,6 @@ export const Form = ({ }: FormProps) => {
   
   const [user, setUser] = useState<User>(currentUser)
 
- 
-  
   useEffect(() => {
     setValue('fullname', currentUser.fullname);
     setValue('email', currentUser.email);
@@ -42,8 +40,6 @@ export const Form = ({ }: FormProps) => {
   const submitEdit = async (data: User) => {
     const response = await updateUser(data);
   };
-
-console.log('loggedUsed', currentUser)
 
 
 

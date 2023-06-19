@@ -9,12 +9,8 @@ export const Users = () => {
   const navigate = useNavigate();
   const { user, getUser } = usePetCareContext();
 
-  // const [setUser] = useState({} as User)
+  useEffect(() => {getUser()}, [])
 
-
-  // useEffect(() => {getUser()}, [])
-
-  console.log(user)
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column' }}>
       <Form currentUser={user} />
