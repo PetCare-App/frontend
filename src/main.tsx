@@ -38,6 +38,10 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
+    path: "/users/edit",
+    element: <App />,
+  },
+  {
     path: "/home",
     element: <LandingPage />
   }

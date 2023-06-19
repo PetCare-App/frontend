@@ -15,6 +15,7 @@ import LogoImage from './../assets/logo.png';
 import { MyPets } from './pets/MyPets';
 import { useLocation, useNavigate  } from 'react-router-dom';
 import { usePetCareContext } from '../context';
+import { Users } from './users/Users';
 
 const Logo = styled('img')`
   height: 60px;
@@ -25,6 +26,7 @@ function App() {
   const theme = useTheme<Theme>();
   const navigate = useNavigate();
 
+  const {getUser, user} = usePetCareContext()
   const [isMobile, setIsMobile] = useState(false);
   const [content, setContent] = useState(1);
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -50,8 +52,10 @@ function App() {
   useEffect(() => {
     if(content == 1) navigate('/pets')
     if(content == 2) navigate('/')
+    if(content == 6) navigate('/users/edit')
   }, [content])
 
+  useEffect(() => {getUser()}, [])
 
 
   return (
@@ -61,8 +65,6 @@ function App() {
           display="flex"
           flexDirection={!isMobile ? 'row' : 'column'}
           height="100%"
-          marginBottom="100px"
-          paddingBottom="100px"
         >
           {!isMobile ? (
             <DesktopMenu content={content} setContent={setContent} />
@@ -118,7 +120,7 @@ function App() {
             </>
           )}
           {
-            content == 1 ? (<MyPets />) : <div> Página {content} ainda em construção</div>
+            content == 1 ? (<MyPets />) : content == 6 ? ( <Users />) : ( <div> Página {content} ainda em construção</div>)
           }
         </Box>
       </Background>

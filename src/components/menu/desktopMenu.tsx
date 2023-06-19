@@ -7,8 +7,13 @@ import {
   ListItemButton,
   MenuItem,
 } from '@mui/material';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LogoImage from './../../assets/logo.png';
 import { MenuProps } from './types';
+import PersonIcon from '@mui/icons-material/Person';
+import {  IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { border } from '@mui/system';
 
 const Menu = styled(Box)`
   display: flex;
@@ -22,6 +27,8 @@ const Logo = styled('img')`
   width: 100px;
   padding: 20px;
 `;
+
+
 
 export const DesktopMenu = ({ content, setContent }: MenuProps) => {
   return (
@@ -39,9 +46,16 @@ export const DesktopMenu = ({ content, setContent }: MenuProps) => {
       <ListItem>
         <ListItemButton onClick={() => setContent(4)}>opção 4</ListItemButton>
       </ListItem>
+      <ListItem style={{ marginTop: '15vh' }}>
+      <ListItemButton style={{  display: "flex", justifyContent: "center" }} component={Link} to="/login">        <IconButton color="inherit" aria-label="Logout">
+          <ExitToAppIcon />
+        </IconButton>
+      </ListItemButton>
       <ListItem>
-        <ListItemButton onClick={() => setContent(5)}>opção 5</ListItemButton>
+        <ListItemButton style={{ display: "flex", justifyContent: "center" }} onClick={() => setContent(6)}><PersonIcon fontSize='large'  /></ListItemButton>
       </ListItem>
+    </ListItem>
+      
     </Menu>
   );
 };

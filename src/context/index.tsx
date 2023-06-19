@@ -2,13 +2,15 @@ import React, { createContext, useContext, useState } from 'react';
 import { Pet } from '../types/pets';
 import { createPetService, deletePetService, getPetsService, updatePetService } from '../services/pets';
 import { User } from '../types/users';
+import { getUserService, updateUserService } from '../services/users';
 
 export const PetCareContext = createContext({} as any);
+
 
 export function ProviderContext({ children }: any) { 
 
   const [pets, setPets] = useState<any[]>([])
-  const [user, setUser] = useState<User>({email: 'nadine.zingano@gmail.com', id: 1})
+  const [user, setUser] = useState<User>({email: '', id: 1, fullname: ''})
 
   const getPets = async () => {
     try {
@@ -53,6 +55,27 @@ export function ProviderContext({ children }: any) {
     }
   }
 
+  const getUser = async () => {
+    try {
+      const response = await getUserService(user.id);
+      setUser({...response.data})
+
+    } catch (error) {
+      throw error
+    }
+  }
+
+  const updateUser = async (userData: any) => {
+    try {
+      delete userData.password
+      delete userData.pets
+      const response = await updateUserService(userData);
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+
   
 const states = {
   pets,
@@ -66,7 +89,9 @@ const actions = {
   createPet, 
   setUser,
   updatePet,
-  deletePet
+  deletePet,
+  getUser,
+  updateUser,
 };
 
 
