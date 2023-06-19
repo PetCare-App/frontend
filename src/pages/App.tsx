@@ -16,6 +16,7 @@ import { MyPets } from './pets/MyPets';
 import { useLocation, useNavigate  } from 'react-router-dom';
 import { usePetCareContext } from '../context';
 import { Users } from './users/Users';
+import { PetsHigiene } from './higiene/Higiene';
 
 const Logo = styled('img')`
   height: 60px;
@@ -52,6 +53,7 @@ function App() {
   useEffect(() => {
     if(content == 1) navigate('/pets')
     if(content == 2) navigate('/')
+    if(content == 3) navigate('/higiene')
     if(content == 6) navigate('/users/edit')
   }, [content])
 
@@ -120,7 +122,7 @@ function App() {
             </>
           )}
           {
-            content == 1 ? (<MyPets />) : content == 6 ? ( <Users />) : ( <div> Página {content} ainda em construção</div>)
+            content == 1 ? (<MyPets />) : content == 6 ? ( <Users />) : content == 3 ? ( <PetsHigiene /> ) : ( <div> Página {content} ainda em construção</div>)
           }
         </Box>
       </Background>

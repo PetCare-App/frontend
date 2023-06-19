@@ -32,7 +32,7 @@ const Logo = styled('img')`
 
 export const DesktopMenu = ({ content, setContent }: MenuProps) => {
   return (
-    <Menu flexDirection="column" width="200px">
+    <Menu position='relative' flexDirection="column" width="200px">
       <Logo src={LogoImage} />
       <ListItem>
         <ListItemButton onClick={() => setContent(1)}>Meus Pets</ListItemButton>
@@ -41,13 +41,13 @@ export const DesktopMenu = ({ content, setContent }: MenuProps) => {
         <ListItemButton onClick={() => setContent(2)}>opção 2</ListItemButton>
       </ListItem>
       <ListItem>
-        <ListItemButton onClick={() => setContent(3)}>opção 3</ListItemButton>
+        <ListItemButton onClick={() => setContent(3)}>Higiene</ListItemButton>
       </ListItem>
       <ListItem>
         <ListItemButton onClick={() => setContent(4)}>opção 4</ListItemButton>
       </ListItem>
-      <ListItem style={{ marginTop: '15vh' }}>
-      <ListItemButton style={{  display: "flex", justifyContent: "center" }} component={Link} to="/login">        <IconButton color="inherit" aria-label="Logout">
+      <ListItem style={{position: 'absolute', bottom: '0px'}}>
+      <ListItemButton style={{ display: "flex", justifyContent: "center" }} component={Link} to="/login">        <IconButton color="inherit" aria-label="Logout">
           <ExitToAppIcon />
         </IconButton>
       </ListItemButton>
