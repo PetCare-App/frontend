@@ -92,7 +92,11 @@ export function ProviderContext({ children }: any) {
 
   const createHigiene = async (higieneData: any) => {
     try {
-      const response = await createHigieneService(higieneData);
+      const data = {
+        ...higieneData,
+        petId: parseInt(higieneData.petId, 10),
+      };
+      const response = await createHigieneService(data);
       return response
     } catch (error) {
       throw error

@@ -42,7 +42,7 @@ export const Form = ({isCreate, handleReturnButton, currentHigiene}: FormProps) 
     resolver: yupResolver(schema),
   });
   const theme = useTheme();
-  const {createHigiene, updateHigiene, pets, higienes} = usePetCareContext()
+  const {createHigiene, updateHigiene, pets} = usePetCareContext()
   const [higiene, setHigiene] = useState<Higiene>(currentHigiene)
   const submitCreate = async (data: Higiene) => {
     const response = await createHigiene(data)
@@ -89,16 +89,18 @@ export const Form = ({isCreate, handleReturnButton, currentHigiene}: FormProps) 
             >
            <FormControl>
             <FormLabel>Pet</FormLabel>
-              <Select
+              <Select     
                 placeholder="Escolha o seu pet"
                 value={higiene.petId}
-                onChange={handlePetChange}
-                sx={{ width: '250px' }}
+                onChange={(_, e: any) => {
+                  setHigiene({ ...higiene, petId: e})
+                }}
+                
               >
-                {pets.map((pet: any) => (
-                  <MenuItem key={pet.id} value={pet.id}>
+                {pets.map((pet: Pet) => (
+                  <Option key={pet.id} value={pet.id}>
                     {pet.name}
-                  </MenuItem>
+                  </Option>
                 ))}
               </Select>
             </FormControl>
