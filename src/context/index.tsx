@@ -2,13 +2,17 @@ import React, { createContext, useContext, useState } from 'react';
 import { Pet } from '../types/pets';
 import { createPetService, deletePetService, getPetsService, updatePetService } from '../services/pets';
 import { User } from '../types/users';
+import { Vaccine } from '../types/vaccines';
+import { createVaccineService, getVaccinesByPetId } from '../services/vaccinesService';
 
 export const PetCareContext = createContext({} as any);
 
 export function ProviderContext({ children }: any) { 
 
   const [pets, setPets] = useState<any[]>([])
-  const [user, setUser] = useState<User>({email: 'nadine.zingano@gmail.com', id: 1})
+  const [user, setUser] = useState<User>({email: 'nadine.zingano@gmail.com', id: 3})
+  const [vaccines, setVaccines] = useState<Vaccine[]>([])
+
 
   const getPets = async () => {
     try {
@@ -53,10 +57,33 @@ export function ProviderContext({ children }: any) {
     }
   }
 
+  const getVaccines = async () => {
+    try {
+      let vaccineList: any[] = []
+      for await (const pet of pets) {
+        const response = await getVaccinesByPetId(pet.id);
+          vaccineList.push(...response.data)
+      }
+      setVaccines(vaccineList)
+    } catch (error) {
+      throw error
+    } 
+  }
+
+  const createVaccine = async (vaccineData: any) => {
+    try {
+      const response = await createVaccineService(vaccineData);
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+
   
 const states = {
   pets,
   user,
+  vaccines
   
  
 };
@@ -66,7 +93,9 @@ const actions = {
   createPet, 
   setUser,
   updatePet,
-  deletePet
+  deletePet,
+  getVaccines,
+  createVaccine
 };
 
 

@@ -31,7 +31,7 @@ export const DesktopMenu = ({ content, setContent }: MenuProps) => {
         <ListItemButton onClick={() => setContent(1)}>Meus Pets</ListItemButton>
       </ListItem>
       <ListItem>
-        <ListItemButton onClick={() => setContent(2)}>opção 2</ListItemButton>
+        <ListItemButton onClick={() => setContent(2)}>Vacinas</ListItemButton>
       </ListItem>
       <ListItem>
         <ListItemButton onClick={() => setContent(3)}>opção 3</ListItemButton>

@@ -40,7 +40,24 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <LandingPage />
-  }
+  },
+  {
+    path: "/vaccines",
+    element: <App />,
+  },
+  {
+    path: "/vaccines/dashboard",
+    element: <App />,
+  },
+  {
+    path: "/vaccines/create",
+    element: <App />,
+  },
+  {
+    path: "/vaccines/edit",
+    element: <App />,
+  },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

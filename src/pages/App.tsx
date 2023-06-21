@@ -15,6 +15,7 @@ import LogoImage from './../assets/logo.png';
 import { MyPets } from './pets/MyPets';
 import { useLocation, useNavigate  } from 'react-router-dom';
 import { usePetCareContext } from '../context';
+import { Vaccines } from './vaccines/Vaccines';
 
 const Logo = styled('img')`
   height: 60px;
@@ -49,7 +50,7 @@ function App() {
 
   useEffect(() => {
     if(content == 1) navigate('/pets')
-    if(content == 2) navigate('/')
+    if(content == 2) navigate('/vacinas')
   }, [content])
 
 
@@ -111,14 +112,14 @@ function App() {
                       setMenuOpen(false);
                     }}
                   >
-                    opção 2
+                    Vacinas
                   </MenuItem>
                 </Menu>
               )}
             </>
           )}
           {
-            content == 1 ? (<MyPets />) : <div> Página {content} ainda em construção</div>
+            content == 1 ? (<MyPets />) : content == 2 ? (<Vaccines />) :<div> Página {content} ainda em construção</div>
           }
         </Box>
       </Background>

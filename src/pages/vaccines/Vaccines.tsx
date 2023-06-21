@@ -5,53 +5,53 @@ import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentT
 import { useNavigate } from 'react-router-dom';
 import { Dashboard } from './Dashboard';
 import { Form } from './Form';
-import { Pet } from '../../types/pets';
+import { Vaccine } from '../../types/vaccines';
 
 
-export const MyPets = () => {
+export const Vaccines = () => {
   const navigate = useNavigate()
-  const {pets, getPets, deletePet} = usePetCareContext()
+  const {vaccines, getVaccines, deletePet} = usePetCareContext()
 
   const [isFormOpen, setOpenForm] = useState(false)
   const [isCreate, setCreate] = useState(false)
   const [isDeleteConfirmation, setDeleteConfirmation] = useState(false)
 
-  const [pet, setPet] = useState({} as Pet)
+  const [vaccine, setVaccine] = useState({} as Vaccine)
 
   useEffect(() => {
-    !!isFormOpen &&  !!isCreate ? navigate('/pets/create') : 
-    !!isFormOpen &&  !isCreate ? navigate('/pets/edit') :
-     navigate('/pets/dashboard')
+    !!isFormOpen &&  !!isCreate ? navigate('/vaccines/create') : 
+    !!isFormOpen &&  !isCreate ? navigate('/vaccines/edit') :
+     navigate('/vaccines/dashboard')
   }, [isFormOpen])
 
   const handleOpenCreateForm = () => {
-    setPet({} as Pet)
+    setVaccine({} as Vaccine)
     setOpenForm(true)
     setCreate(true)
   }
 
-  const handleOpenEditForm = (pet: Pet) => {
+  const handleOpenEditForm = (vaccine: Vaccine) => {
     setOpenForm(true)
     setCreate(false)
-    setPet(pet)
+    setVaccine(vaccine)
   }
 
-  const handleOpenDeleteConfirmation = (pet: Pet) => {
+  const handleOpenDeleteConfirmation = (vaccine: Vaccine) => {
     setDeleteConfirmation(true)
-    setPet(pet)
+    setVaccine(vaccine)
   }
 
   const handleReturnButton = () => {
-    setPet({} as Pet)
+    setVaccine({} as Vaccine)
     setOpenForm(false)
     setCreate(false)
   }
 
-  const handleDeletePetButton = async (id: number) => {
-    const response = await deletePet(id)
+  const handleDeleteVaccineButton = async (id: number) => {
+    //const response = await deletePet(id)
     setDeleteConfirmation(false)
-    setPet({} as Pet)
-    getPets()
+    setVaccine({} as Vaccine)
+    getVaccines()
 
   }
 
@@ -62,7 +62,7 @@ export const MyPets = () => {
       ?
         <Dashboard handleOpenCreateForm={handleOpenCreateForm} handleOpenEditForm={handleOpenEditForm} handleOpenDeleteConfirmation={handleOpenDeleteConfirmation}/>  
       :
-        <Form isCreate={isCreate} handleReturnButton={handleReturnButton} currentPet={pet}></Form>
+        <Form isCreate={isCreate} handleReturnButton={handleReturnButton} currentVaccine={vaccine}></Form>
        }
 
        {
@@ -76,7 +76,7 @@ export const MyPets = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setDeleteConfirmation(false)}>Cancelar</Button>
-            <Button onClick={() => handleDeletePetButton(pet.id)}>Deletar</Button>
+            <Button onClick={() => handleDeleteVaccineButton(vaccine.id)}>Deletar</Button>
           </DialogActions>
         </Dialog>
         )

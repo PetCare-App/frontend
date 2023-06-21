@@ -1,5 +1,5 @@
 export interface Pet {
-  id: string;
+  id: number;
   name: string;
   breed: string;
   animalType: string | null;
