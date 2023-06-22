@@ -16,7 +16,7 @@ interface DashboardProps {
 }
 
 export const Dashboard = ({handleOpenCreateForm, handleOpenEditForm, handleOpenDeleteConfirmation}: DashboardProps) => {
-  const {higienes, getHigienes} = usePetCareContext()
+  const {higienes, getHigienes, pets} = usePetCareContext()
 
   useEffect(() => {getHigienes()}, [])
 
@@ -39,17 +39,25 @@ export const Dashboard = ({handleOpenCreateForm, handleOpenEditForm, handleOpenD
       <Container sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'center'}}>
       {
 
+      
+
       !!higienes.length && (
         higienes.map((higiene: Higiene) => {
+          const pet = pets.find((pet: any) => pet.id === higiene.petId)
           return( 
           <Card variant="outlined" key={higiene?.id} sx={{height: '200px', width: '200px', marginBottom: '20px', padding: '10px'}}> 
             <CardContent sx={{padding: '10px'}}>
+              <Stack direction="row" justifyContent="space-between" alignItems="center">
+                {pet && (<Typography sx={{ fontSize: 24, fontWeight: 600 }} color="text.secondary" variant='h3' gutterBottom >
+                  {pet?.name}
+                </Typography> )}
+              </Stack>
               <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <Typography sx={{ fontSize: 16, fontWeight: 600 }} color="text.primary" variant='h3' gutterBottom >
                   {higiene?.name}
                 </Typography>
               </Stack>
-              <Stack direction="column" justifyContent="flex-end" alignItems="flex-start" height="100px">
+              <Stack direction="column" justifyContent="flex-end" alignItems="flex-start" height="35px">
                 <Typography sx={{ fontSize: 15 }} color="text.primary" >
                   { `Data: ${dateFormat(higiene?.date)}`}
                 </Typography>
