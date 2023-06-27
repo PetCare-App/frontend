@@ -42,6 +42,22 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
+    path: "/higienes",
+    element: <App />,
+  },
+  {
+    path: "/higienes/dashboard",
+    element: <App />,
+  },
+  {
+    path: "/higienes/create",
+    element: <App />,
+  },
+  {
+    path: "/higienes/edit",
+    element: <App />,
+  },
+  {
     path: "/home",
     element: <LandingPage />
   }

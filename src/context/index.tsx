@@ -3,6 +3,8 @@ import { Pet } from '../types/pets';
 import { createPetService, deletePetService, getPetsService, updatePetService } from '../services/pets';
 import { User } from '../types/users';
 import { getUserService, updateUserService } from '../services/users';
+import { createHigieneService, deleteHigieneService, getHigienesService, updateHigieneService } from '../services/higienes';
+import { Higiene } from '../types/higiene';
 
 export const PetCareContext = createContext({} as any);
 
@@ -11,6 +13,7 @@ export function ProviderContext({ children }: any) {
 
   const [pets, setPets] = useState<any[]>([])
   const [user, setUser] = useState<User>({email: '', id: 1, fullname: ''})
+  const [higienes, setHigienes] = useState<Higiene[]>([])
 
   const getPets = async () => {
     try {
@@ -76,10 +79,53 @@ export function ProviderContext({ children }: any) {
     }
   }
 
+
+  const getHigienes = async () => {
+    try {
+      const response = await getHigienesService();
+      setHigienes(response.data)
+    } catch (error) {
+      throw error
+    }
+    
+  }
+
+  const createHigiene = async (higieneData: any) => {
+    try {
+      const data = {
+        ...higieneData,
+        petId: parseInt(higieneData.petId, 10),
+      };
+      const response = await createHigieneService(data);
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+
+  
+  const updateHigiene = async (higieneData: any) => {
+    try {
+      const response = await updateHigieneService(higieneData);
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+
+  const deleteHigiene = async (id: any) => {
+    try {
+      const response = await deleteHigieneService(id);
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
   
 const states = {
   pets,
   user,
+  higienes,
   
  
 };
@@ -92,6 +138,11 @@ const actions = {
   deletePet,
   getUser,
   updateUser,
+  getHigienes,
+  createHigiene,
+  setHigienes,
+  updateHigiene,
+  deleteHigiene
 };
 
 
