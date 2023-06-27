@@ -5,20 +5,21 @@ import {
   MenuItem,
   Theme,
   useTheme,
-} from '@mui/material';
-import Background from '../components/background';
-import { DesktopMenu } from '../components/menu/desktopMenu';
-import { useEffect, useState } from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-import styled from '@emotion/styled';
-import LogoImage from './../assets/logo.png';
-import { MyPets } from './pets/MyPets';
-import { useLocation, useNavigate  } from 'react-router-dom';
-import { usePetCareContext } from '../context';
-import { Users } from './users/Users';
-import { PetsHigiene } from './higiene/Higiene';
+} from "@mui/material";
+import Background from "../components/background";
+import { DesktopMenu } from "../components/menu/desktopMenu";
+import { useEffect, useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import styled from "@emotion/styled";
+import LogoImage from "./../assets/logo.png";
+import { MyPets } from "./pets/MyPets";
+import { useLocation, useNavigate } from "react-router-dom";
+import { usePetCareContext } from "../context";
+import { Users } from "./users/Users";
+import { PetsHigiene } from "./higiene/Higiene";
+import { PetsControleParasitario } from "./controleParasitario/ControleParasitario";
 
-const Logo = styled('img')`
+const Logo = styled("img")`
   height: 60px;
   width: auto;
 `;
@@ -27,7 +28,7 @@ function App() {
   const theme = useTheme<Theme>();
   const navigate = useNavigate();
 
-  const {getUser, user} = usePetCareContext()
+  const { getUser, user } = usePetCareContext();
   const [isMobile, setIsMobile] = useState(false);
   const [content, setContent] = useState(1);
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -35,13 +36,13 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
-      if(window.screen.width > 600) setIsMobile(false);
+      if (window.screen.width > 600) setIsMobile(false);
       else setIsMobile(true);
     };
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isMobile]);
 
   const handleMenuButton = (event: any) => {
@@ -51,21 +52,23 @@ function App() {
   };
 
   useEffect(() => {
-    if(content == 1) navigate('/pets')
-    if(content == 2) navigate('/')
-    if(content == 3) navigate('/higiene')
-    if(content == 6) navigate('/users/edit')
-  }, [content])
+    if (content == 1) navigate("/pets");
+    if (content == 2) navigate("/");
+    if (content == 3) navigate("/higiene");
+    if (content == 4) navigate("/controleParasitario");
+    if (content == 6) navigate("/users/edit");
+  }, [content]);
 
-  useEffect(() => {getUser()}, [])
-
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <>
       <Background>
         <Box
           display="flex"
-          flexDirection={!isMobile ? 'row' : 'column'}
+          flexDirection={!isMobile ? "row" : "column"}
           height="100%"
         >
           {!isMobile ? (
@@ -88,23 +91,22 @@ function App() {
                   open={isMenuOpen}
                   onClose={() => {
                     setAnchorEl(null);
-                    setMenuOpen(false)
+                    setMenuOpen(false);
                   }}
                   anchorEl={anchorEl}
                   anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                 >
                   <MenuItem
                     onClick={() => {
                       setContent(1);
                       setMenuOpen(false);
-                      
                     }}
                   >
                     Meus pets
@@ -121,9 +123,17 @@ function App() {
               )}
             </>
           )}
-          {
-            content == 1 ? (<MyPets />) : content == 6 ? ( <Users />) : content == 3 ? ( <PetsHigiene /> ) : ( <div> Página {content} ainda em construção</div>)
-          }
+          {content == 1 ? (
+            <MyPets />
+          ) : content == 3 ? (
+            <PetsHigiene />
+          ) : content == 4 ? (
+            <PetsControleParasitario />
+          ) : content == 6 ? (
+            <Users />
+          ) : (
+            <div> Página {content} ainda em construção</div>
+          )}
         </Box>
       </Background>
     </>
