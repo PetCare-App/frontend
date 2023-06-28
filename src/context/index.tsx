@@ -27,11 +27,13 @@ export const PetCareContext = createContext({} as any);
 
 export function ProviderContext({ children }: any) {
   const [pets, setPets] = useState<any[]>([]);
-  const [user, setUser] = useState<User>({ email: "", id: 1, fullname: "" });
+  const [user, setUser] = useState<User>({ email: "", id: 5, fullname: "" });
   const [higienes, setHigienes] = useState<Higiene[]>([]);
   const [controleParasitarios, setControleParasitarios] = useState<
     ControleParasitario[]
   >([]);
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const getPets = async () => {
     try {
@@ -94,8 +96,16 @@ export function ProviderContext({ children }: any) {
 
   const getHigienes = async () => {
     try {
-      const response = await getHigienesService();
-      setHigienes(response.data);
+      const petList = pets.map((pet) => pet.id);
+      console.log("petList :>> ", petList);
+      let listaHigiene = [];
+      for await (let id of petList) {
+        const response = await getHigienesService(id);
+        listaHigiene.push(...response.data.hygiene);
+      }
+      console.log("listaHigiene :>> ", listaHigiene);
+      setHigienes(listaHigiene);
+      console.log(higienes);
     } catch (error) {
       throw error;
     }
@@ -117,8 +127,10 @@ export function ProviderContext({ children }: any) {
   const updateHigiene = async (higieneData: any) => {
     try {
       const response = await updateHigieneService(higieneData);
+      setSuccessMessage(true);
       return response;
     } catch (error) {
+      setErrorMessage(true);
       throw error;
     }
   };
@@ -179,6 +191,8 @@ export function ProviderContext({ children }: any) {
     user,
     higienes,
     controleParasitarios,
+    successMessage,
+    errorMessage,
   };
 
   const actions = {
@@ -198,6 +212,8 @@ export function ProviderContext({ children }: any) {
     createControleParasitario,
     updateControleParasitario,
     deleteControleParasitario,
+    setSuccessMessage,
+    setErrorMessage,
   };
 
   return (
