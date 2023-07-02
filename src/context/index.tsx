@@ -97,15 +97,12 @@ export function ProviderContext({ children }: any) {
   const getHigienes = async () => {
     try {
       const petList = pets.map((pet) => pet.id);
-      console.log("petList :>> ", petList);
       let listaHigiene = [];
       for await (let id of petList) {
         const response = await getHigienesService(id);
         listaHigiene.push(...response.data.hygiene);
       }
-      console.log("listaHigiene :>> ", listaHigiene);
       setHigienes(listaHigiene);
-      console.log(higienes);
     } catch (error) {
       throw error;
     }
@@ -145,9 +142,13 @@ export function ProviderContext({ children }: any) {
   };
 
   const getControleParasitarios = async () => {
-    try {
-      const response = await getControleParasitariosService();
-      setControleParasitarios(response.data);
+    try {const petList = pets.map((pet) => pet.id);
+      let listaControleParasitario = [];
+      for await (let id of petList) {
+        const response = await getControleParasitariosService(id);
+        listaControleParasitario.push(...response.data.parasiteControl);
+      }
+      setControleParasitarios(listaControleParasitario);
     } catch (error) {
       throw error;
     }

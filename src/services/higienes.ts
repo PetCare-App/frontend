@@ -5,7 +5,7 @@ export const createHigieneService = async (higieneData: any) => {
 };
 
 export const updateHigieneService = async (higieneData: any) => {
-  return await api.patch(`/hygienee/${higieneData.id}`, { ...higieneData });
+  return await api.patch(`/hygiene/${higieneData.id}`, { ...higieneData });
 };
 
 export const deleteHigieneService = async (id: any) => {
