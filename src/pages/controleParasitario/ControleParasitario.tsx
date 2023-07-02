@@ -13,54 +13,66 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Dashboard } from "./Dashboard";
 import { Form } from "./Form";
-import { Higiene } from "../../types/higiene";
+import { ControleParasitario } from "../../types/controleParasitario";
 
-export const PetsHigiene = () => {
+export const PetsControleParasitario = () => {
   const navigate = useNavigate();
-  const { higienes, getHigienes, deleteHigiene } = usePetCareContext();
+  const {
+    controleParasitarios,
+    getControleParasitarios,
+    deleteControleParasitario,
+  } = usePetCareContext();
 
   const [isFormOpen, setOpenForm] = useState(false);
   const [isCreate, setCreate] = useState(false);
   const [isDeleteConfirmation, setDeleteConfirmation] = useState(false);
 
-  const [higiene, setHigiene] = useState({} as Higiene);
+  const [controleParasitario, setControleParasitario] = useState(
+    {} as ControleParasitario
+  );
+
+  useEffect(() => {
+    getControleParasitarios();
+  }, []);
 
   useEffect(() => {
     !!isFormOpen && !!isCreate
-      ? navigate("/higienes/create")
+      ? navigate("/controleParasitarios/create")
       : !!isFormOpen && !isCreate
-      ? navigate("/higienes/edit")
-      : navigate("/higienes/dashboard");
+      ? navigate("/controleParasitarios/edit")
+      : navigate("/controleParasitarios/dashboard");
   }, [isFormOpen]);
 
   const handleOpenCreateForm = () => {
-    setHigiene({} as Higiene);
+    setControleParasitario({} as ControleParasitario);
     setOpenForm(true);
     setCreate(true);
   };
 
-  const handleOpenEditForm = (higiene: Higiene) => {
+  const handleOpenEditForm = (controleParasitario: ControleParasitario) => {
     setOpenForm(true);
     setCreate(false);
-    setHigiene(higiene);
+    setControleParasitario(controleParasitario);
   };
 
-  const handleOpenDeleteConfirmation = (higiene: Higiene) => {
+  const handleOpenDeleteConfirmation = (
+    controleParasitario: ControleParasitario
+  ) => {
     setDeleteConfirmation(true);
-    setHigiene(higiene);
+    setControleParasitario(controleParasitario);
   };
 
   const handleReturnButton = () => {
-    setHigiene({} as Higiene);
+    setControleParasitario({} as ControleParasitario);
     setOpenForm(false);
     setCreate(false);
   };
 
-  const handleDeleteHigieneButton = async (id: string) => {
-    const response = await deleteHigiene(id);
+  const handleDeleteControleParasitarioButton = async (id: string) => {
+    const response = await deleteControleParasitario(id);
     setDeleteConfirmation(false);
-    setHigiene({} as Higiene);
-    getHigienes();
+    setControleParasitario({} as ControleParasitario);
+    getControleParasitarios();
   };
 
   return (
@@ -75,7 +87,7 @@ export const PetsHigiene = () => {
         <Form
           isCreate={isCreate}
           handleReturnButton={handleReturnButton}
-          currentHigiene={higiene}
+          currentControleParasitario={controleParasitario}
         ></Form>
       )}
 
@@ -94,7 +106,11 @@ export const PetsHigiene = () => {
             <Button onClick={() => setDeleteConfirmation(false)}>
               Cancelar
             </Button>
-            <Button onClick={() => handleDeleteHigieneButton(higiene.id)}>
+            <Button
+              onClick={() =>
+                handleDeleteControleParasitarioButton(controleParasitario.id)
+              }
+            >
               Deletar
             </Button>
           </DialogActions>

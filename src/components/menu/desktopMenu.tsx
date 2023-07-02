@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 import {
   Box,
   Divider,
@@ -6,14 +6,14 @@ import {
   ListItem,
   ListItemButton,
   MenuItem,
-} from '@mui/material';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import LogoImage from './../../assets/logo.png';
-import { MenuProps } from './types';
-import PersonIcon from '@mui/icons-material/Person';
-import {  IconButton } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { border } from '@mui/system';
+} from "@mui/material";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import LogoImage from "./../../assets/logo.png";
+import { MenuProps } from "./types";
+import PersonIcon from "@mui/icons-material/Person";
+import { IconButton } from "@mui/material";
+import { Link } from "react-router-dom";
+import { border } from "@mui/system";
 
 const Menu = styled(Box)`
   display: flex;
@@ -22,17 +22,15 @@ const Menu = styled(Box)`
   margin: 0px;
 `;
 
-const Logo = styled('img')`
+const Logo = styled("img")`
   height: 80px;
   width: 100px;
   padding: 20px;
 `;
 
-
-
 export const DesktopMenu = ({ content, setContent }: MenuProps) => {
   return (
-    <Menu position='relative' flexDirection="column" width="200px">
+    <Menu position="relative" flexDirection="column" width="200px">
       <Logo src={LogoImage} />
       <ListItem>
         <ListItemButton onClick={() => setContent(1)}>Meus Pets</ListItemButton>
@@ -44,18 +42,30 @@ export const DesktopMenu = ({ content, setContent }: MenuProps) => {
         <ListItemButton onClick={() => setContent(3)}>Higiene</ListItemButton>
       </ListItem>
       <ListItem>
-        <ListItemButton onClick={() => setContent(4)}>opção 4</ListItemButton>
+        <ListItemButton onClick={() => setContent(4)}>
+          Controle Parasitário
+        </ListItemButton>
       </ListItem>
-      <ListItem style={{position: 'absolute', bottom: '0px'}}>
-      <ListItemButton style={{ display: "flex", justifyContent: "center" }} component={Link} to="/login">        <IconButton color="inherit" aria-label="Logout">
-          <ExitToAppIcon />
-        </IconButton>
-      </ListItemButton>
-      <ListItem>
-        <ListItemButton style={{ display: "flex", justifyContent: "center" }} onClick={() => setContent(6)}><PersonIcon fontSize='large'  /></ListItemButton>
+      <ListItem style={{ position: "absolute", bottom: "0px" }}>
+        <ListItemButton
+          style={{ display: "flex", justifyContent: "center" }}
+          component={Link}
+          to="/login"
+        >
+          {" "}
+          <IconButton color="inherit" aria-label="Logout">
+            <ExitToAppIcon />
+          </IconButton>
+        </ListItemButton>
+        <ListItem>
+          <ListItemButton
+            style={{ display: "flex", justifyContent: "center" }}
+            onClick={() => setContent(6)}
+          >
+            <PersonIcon fontSize="large" />
+          </ListItemButton>
+        </ListItem>
       </ListItem>
-    </ListItem>
-      
     </Menu>
   );
 };

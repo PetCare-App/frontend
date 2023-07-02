@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3000/',
-    timeout: 1000,
-  });
+  baseURL: "https://petcaredeploy-api.onrender.com",
+  timeout: 5000,
+});
 
-export const api = instance
+export const api = instance;

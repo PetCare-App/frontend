@@ -58,9 +58,25 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
+    path: "/controleParasitarios",
+    element: <App />,
+  },
+  {
+    path: "/controleParasitarios/dashboard",
+    element: <App />,
+  },
+  {
+    path: "/controleParasitarios/create",
+    element: <App />,
+  },
+  {
+    path: "/controleParasitarios/edit",
+    element: <App />,
+  },
+  {
     path: "/home",
-    element: <LandingPage />
-  }
+    element: <LandingPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

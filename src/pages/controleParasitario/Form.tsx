@@ -2,32 +2,20 @@ import {
   Container,
   Box,
   IconButton,
-  Avatar,
-  TextField,
   Typography,
-  Grid,
   useTheme,
-  css,
   Stack,
-  Alert,
-  MenuItem,
-  Snackbar,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { usePetCareContext } from "../../context";
-import { Higiene } from "../../types/higiene";
-
-import Paw from "./../../assets/paw.png";
-import Dog from "./../../assets/dog.png";
-import Cat from "./../../assets/cat.png";
 import { useState, useEffect } from "react";
-import styled from "@emotion/styled";
 import Option from "@mui/joy/Option";
 import { Select, Input, FormControl, FormLabel, Button } from "@mui/joy";
 import { Pet } from "../../types/pets";
+import { ControleParasitario } from "../../types/controleParasitario";
 
 interface FormWrapperProps {
   theme: any;
@@ -41,48 +29,40 @@ const schema = yup.object().shape({
 interface FormProps {
   isCreate: boolean;
   handleReturnButton: () => void;
-  currentHigiene: Higiene;
+  currentControleParasitario: ControleParasitario;
 }
 
 export const Form = ({
   isCreate,
   handleReturnButton,
-  currentHigiene,
+  currentControleParasitario,
 }: FormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<Higiene>({
+  } = useForm<ControleParasitario>({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
   const theme = useTheme();
-  const { createHigiene, updateHigiene, pets, errorMessage, setErrorMessage } =
+  const { createControleParasitario, updateControleParasitario, pets } =
     usePetCareContext();
-  const [higiene, setHigiene] = useState<Higiene>(currentHigiene);
-  const submitCreate = async (data: Higiene) => {
-    const response = await createHigiene(data);
+  const [controleParasitario, setControleParasitario] =
+    useState<ControleParasitario>(currentControleParasitario);
+  const submitCreate = async (data: ControleParasitario) => {
+    const response = await createControleParasitario(data);
 
     if (response?.status == 201) {
       handleReturnButton();
     }
   };
 
-  const submitEdit = async (data: Higiene) => {
-    const response = await updateHigiene(data);
+  const submitEdit = async (data: ControleParasitario) => {
+    const response = await updateControleParasitario(data);
     if (response?.status === 200) {
       handleReturnButton();
     }
-  };
-
-  const handleCloseSnackbar = () => {
-    setErrorMessage(false);
-  };
-
-  const handlePetChange = (event: any) => {
-    const newValue = event.target.value;
-    setHigiene((prevHigiene) => ({ ...prevHigiene, petId: newValue }));
   };
 
   return (
@@ -124,9 +104,9 @@ export const Form = ({
               <FormLabel>Pet</FormLabel>
               <Select
                 placeholder="Escolha o seu pet"
-                value={higiene.petId}
+                value={controleParasitario.petId}
                 onChange={(_, e: any) => {
-                  setHigiene({ ...higiene, petId: e });
+                  setControleParasitario({ ...controleParasitario, petId: e });
                 }}
               >
                 {pets.map((pet: Pet) => (
@@ -141,9 +121,12 @@ export const Form = ({
               <Input
                 {...register("name")}
                 onChange={(e) =>
-                  setHigiene({ ...higiene, name: e.target.value })
+                  setControleParasitario({
+                    ...controleParasitario,
+                    name: e.target.value,
+                  })
                 }
-                value={higiene.name}
+                value={controleParasitario.name}
               />
             </FormControl>
 
@@ -151,7 +134,7 @@ export const Form = ({
               <FormLabel>Data</FormLabel>
               <Input
                 type="date"
-                value={higiene.date?.split("T")[0]}
+                value={controleParasitario.date?.split("T")[0]}
                 slotProps={{
                   input: {
                     min: "2018-06-07T00:00",
@@ -159,7 +142,10 @@ export const Form = ({
                   },
                 }}
                 onChange={(e) =>
-                  setHigiene({ ...higiene, date: e.target.value })
+                  setControleParasitario({
+                    ...controleParasitario,
+                    date: e.target.value,
+                  })
                 }
               />
             </FormControl>
@@ -169,7 +155,9 @@ export const Form = ({
               color="neutral"
               variant="soft"
               onClick={() => {
-                isCreate ? submitCreate(higiene) : submitEdit(higiene);
+                isCreate
+                  ? submitCreate(controleParasitario)
+                  : submitEdit(controleParasitario);
               }}
               sx={{ width: "80px", marginBottom: "20px" }}
             >
@@ -178,17 +166,6 @@ export const Form = ({
           </Stack>
         </Container>
       </Container>
-      {!!errorMessage && (
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          // key={{ vertical: "top", horizontal: "right" }}
-          open={!!errorMessage}
-          autoHideDuration={3000}
-          onClose={handleCloseSnackbar}
-        >
-          <Alert severity="error">Error ao editar higiene!</Alert>
-        </Snackbar>
-      )}
     </>
   );
 };
