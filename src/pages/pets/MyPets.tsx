@@ -7,10 +7,9 @@ import { Dashboard } from './Dashboard';
 import { Form } from './Form';
 import { Pet } from '../../types/pets';
 
-
 export const MyPets = () => {
   const navigate = useNavigate()
-  const {pets, getPets, deletePet} = usePetCareContext()
+  const {pets, getPets, deletePet, getPetPdf} = usePetCareContext()
 
   const [isFormOpen, setOpenForm] = useState(false)
   const [isCreate, setCreate] = useState(false)
@@ -44,6 +43,10 @@ export const MyPets = () => {
     setPet(pet)
   }
 
+  const handlePdf = (pet: Pet) => {
+    getPetPdf(pet.id)
+  }
+
   const handleReturnButton = () => {
     setPet({} as Pet)
     setOpenForm(false)
@@ -63,7 +66,7 @@ export const MyPets = () => {
       {
       !isFormOpen 
       ?
-        <Dashboard handleOpenCreateForm={handleOpenCreateForm} handleOpenEditForm={handleOpenEditForm} handleOpenDeleteConfirmation={handleOpenDeleteConfirmation}/>  
+        <Dashboard handlePdf={handlePdf} handleOpenCreateForm={handleOpenCreateForm} handleOpenEditForm={handleOpenEditForm} handleOpenDeleteConfirmation={handleOpenDeleteConfirmation}/>  
       :
         <Form isCreate={isCreate} handleReturnButton={handleReturnButton} currentPet={pet}></Form>
        }

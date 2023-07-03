@@ -1,4 +1,4 @@
-import { Container, Box, IconButton, Avatar, TextField, Typography, Grid, useTheme, css, Stack, Alert   } from '@mui/material'
+import { Container, Box, IconButton, Avatar, Typography, useTheme, Stack, Alert, Snackbar   } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -10,7 +10,6 @@ import Paw from './../../assets/paw.png'
 import Dog from './../../assets/dog.png'
 import Cat from './../../assets/cat.png'
 import { useState, useEffect } from 'react';
-import styled from '@emotion/styled';
 import Option from '@mui/joy/Option';
 import { Select, Input, FormControl, FormLabel, Button } from '@mui/joy';
 
@@ -45,8 +44,12 @@ export const Form = ({isCreate, handleReturnButton, currentPet}: FormProps) => {
     resolver: yupResolver(schema),
   });
   const theme = useTheme();
-  const {createPet, updatePet} = usePetCareContext()
+  const {createPet, updatePet, errorMessage, setErrorMessage} = usePetCareContext()
   const [pet, setPet] = useState<Pet>(currentPet)
+
+  const handleCloseSnackbar = () => {
+    setErrorMessage(false);
+  };
 
   const submitCreate = async (data: Pet) => {
     const response = await createPet(data)
@@ -165,9 +168,17 @@ export const Form = ({isCreate, handleReturnButton, currentPet}: FormProps) => {
               </Button>
           </Stack>  
         </Container>
-
-       
       </Container>
+      {!!errorMessage && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={!!errorMessage}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert severity="error">Error ao salvar pet!</Alert>
+        </Snackbar>
+      )}
   </>
   )
 };

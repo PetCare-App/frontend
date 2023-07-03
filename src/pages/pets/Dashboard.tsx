@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import { usePetCareContext } from "../../context";
 
-import { Card, CardContent, Typography, CardActions, Button, Container, Box, IconButton, Avatar, Stack } from '@mui/material'
+import { Card, CardContent, Typography, CardActions, Container, Box, IconButton, Avatar, Stack, Snackbar, Alert, } from '@mui/material'
 import { Pet } from '../../types/pets';
-import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import Paw from './../../assets/paw.png'
 import Dog from './../../assets/dog.png'
 import Cat from './../../assets/cat.png'
@@ -16,13 +15,20 @@ interface DashboardProps {
   handleOpenCreateForm: () => void
   handleOpenEditForm: (pet: Pet) => void
   handleOpenDeleteConfirmation: (pet: Pet) => void
+  handlePdf: (pet: Pet) => void
 }
 
-export const Dashboard = ({handleOpenCreateForm, handleOpenEditForm, handleOpenDeleteConfirmation}: DashboardProps) => {
-  const {pets, getPets} = usePetCareContext()
+export const Dashboard = ({handlePdf, handleOpenCreateForm, handleOpenEditForm, handleOpenDeleteConfirmation}: DashboardProps) => {
+  const {pets, getPets, successMessage, setSuccessMessage, deleteErrorMessage, setDeleteErrorMessage, deleteSuccessMessage, setDeleteSuccessMessage, getPetPdf} = usePetCareContext()
 
   useEffect(() => {getPets()}, [])
 
+  const handleCloseSnackbar = () => {
+    setSuccessMessage(false);
+    setDeleteErrorMessage(false);
+    setDeleteSuccessMessage(false);
+  };
+  
   const dateFormat = (date: any ) => {
     const deleteTimestamp = date?.split('T')[0]
     const day = deleteTimestamp.split('-')[2]
@@ -75,12 +81,46 @@ export const Dashboard = ({handleOpenCreateForm, handleOpenEditForm, handleOpenD
             <IconButton onClick={() => handleOpenEditForm(pet)}>
                 <EditIcon sx={{ fontSize: '25px'}}/>
               </IconButton>
+              <IconButton onClick={() => handlePdf(pet)}>
+                <PictureAsPdfIcon sx={{ fontSize: '25px'}}/>
+              </IconButton>
             </CardActions>
           </Card>
         )})
       )
       }
       </Container>
+      {!!successMessage && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          // key={{ vertical: "top", horizontal: "right" }}
+          open={!!successMessage}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert severity="success">Registro Salvo com Sucesso!</Alert>
+        </Snackbar>
+      )}
+      {!!deleteSuccessMessage && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={!!deleteSuccessMessage}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert severity="success">Pet deletado com sucesso!</Alert>
+        </Snackbar>
+      )}
+      {!!deleteErrorMessage && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={!!deleteErrorMessage}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert severity="error">Error ao excluir pet!</Alert>
+        </Snackbar>
+      )}
     </>
   )
   

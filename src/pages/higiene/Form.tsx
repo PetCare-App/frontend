@@ -2,15 +2,10 @@ import {
   Container,
   Box,
   IconButton,
-  Avatar,
-  TextField,
   Typography,
-  Grid,
   useTheme,
-  css,
   Stack,
   Alert,
-  MenuItem,
   Snackbar,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -19,12 +14,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { usePetCareContext } from "../../context";
 import { Higiene } from "../../types/higiene";
-
-import Paw from "./../../assets/paw.png";
-import Dog from "./../../assets/dog.png";
-import Cat from "./../../assets/cat.png";
 import { useState, useEffect } from "react";
-import styled from "@emotion/styled";
 import Option from "@mui/joy/Option";
 import { Select, Input, FormControl, FormLabel, Button } from "@mui/joy";
 import { Pet } from "../../types/pets";
@@ -186,7 +176,7 @@ export const Form = ({
           autoHideDuration={3000}
           onClose={handleCloseSnackbar}
         >
-          <Alert severity="error">Error ao editar higiene!</Alert>
+          <Alert severity="error">Error ao salvar higiene!</Alert>
         </Snackbar>
       )}
     </>
