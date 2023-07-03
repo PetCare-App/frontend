@@ -3,6 +3,7 @@ import { Pet } from "../types/pets";
 import {
   createPetService,
   deletePetService,
+  getPetPdfService,
   getPetsService,
   updatePetService,
 } from "../services/pets";
@@ -34,6 +35,8 @@ export function ProviderContext({ children }: any) {
   >([]);
   const [successMessage, setSuccessMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [deleteSuccessMessage, setDeleteSuccessMessage] = useState(false);
+  const [deleteErrorMessage, setDeleteErrorMessage] = useState(false);
 
   const getPets = async () => {
     try {
@@ -48,9 +51,11 @@ export function ProviderContext({ children }: any) {
     try {
       petData.userId = user.id;
       petData.weight = parseFloat(petData.weight);
+      setSuccessMessage(true);
       const response = await createPetService(petData);
       return response;
     } catch (error) {
+      setErrorMessage(true);
       throw error;
     }
   };
@@ -59,8 +64,10 @@ export function ProviderContext({ children }: any) {
     try {
       petData.weight = parseFloat(petData.weight);
       const response = await updatePetService(petData);
+      setSuccessMessage(true);
       return response;
     } catch (error) {
+      setErrorMessage(true);
       throw error;
     }
   };
@@ -68,8 +75,10 @@ export function ProviderContext({ children }: any) {
   const deletePet = async (id: any) => {
     try {
       const response = await deletePetService(id);
+      setDeleteSuccessMessage(true);
       return response;
     } catch (error) {
+      setDeleteErrorMessage(true);
       throw error;
     }
   };
@@ -88,8 +97,10 @@ export function ProviderContext({ children }: any) {
       delete userData.password;
       delete userData.pets;
       const response = await updateUserService(userData);
+      setSuccessMessage(true);
       return response;
     } catch (error) {
+      setErrorMessage(true);
       throw error;
     }
   };
@@ -115,8 +126,10 @@ export function ProviderContext({ children }: any) {
         petId: parseInt(higieneData.petId, 10),
       };
       const response = await createHigieneService(data);
+      setSuccessMessage(true);
       return response;
     } catch (error) {
+      setErrorMessage(true);
       throw error;
     }
   };
@@ -135,8 +148,10 @@ export function ProviderContext({ children }: any) {
   const deleteHigiene = async (id: any) => {
     try {
       const response = await deleteHigieneService(id);
+      setDeleteSuccessMessage(true);
       return response;
     } catch (error) {
+      setDeleteErrorMessage(true);
       throw error;
     }
   };
@@ -161,8 +176,10 @@ export function ProviderContext({ children }: any) {
         petId: parseInt(controleParasitarioData.petId, 10),
       };
       const response = await createControleParasitarioService(data);
+      setSuccessMessage(true);
       return response;
     } catch (error) {
+      setErrorMessage(true);
       throw error;
     }
   };
@@ -172,8 +189,10 @@ export function ProviderContext({ children }: any) {
       const response = await updateControleParasitarioService(
         controleParasitarioData
       );
+      setSuccessMessage(true);
       return response;
     } catch (error) {
+      setErrorMessage(true);
       throw error;
     }
   };
@@ -181,11 +200,29 @@ export function ProviderContext({ children }: any) {
   const deleteControleParasitario = async (id: any) => {
     try {
       const response = await deleteControleParasitarioService(id);
+      setDeleteSuccessMessage(true);
       return response;
     } catch (error) {
+      setDeleteErrorMessage(true);
       throw error;
     }
   };
+
+  const getPetPdf = async (id: any) => {
+    try {
+      const response = await getPetPdfService(id);
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'arquivo.pdf');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Erro ao baixar o PDF:', error);
+    }
+};
 
   const states = {
     pets,
@@ -194,6 +231,8 @@ export function ProviderContext({ children }: any) {
     controleParasitarios,
     successMessage,
     errorMessage,
+    deleteErrorMessage,
+    deleteSuccessMessage
   };
 
   const actions = {
@@ -215,6 +254,9 @@ export function ProviderContext({ children }: any) {
     deleteControleParasitario,
     setSuccessMessage,
     setErrorMessage,
+    setDeleteErrorMessage,
+    setDeleteSuccessMessage,
+    getPetPdf
   };
 
   return (

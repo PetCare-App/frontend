@@ -10,6 +10,8 @@ import {
   Box,
   IconButton,
   Stack,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -29,8 +31,14 @@ export const Dashboard = ({
   handleOpenEditForm,
   handleOpenDeleteConfirmation,
 }: DashboardProps) => {
-  const { controleParasitarios, getControleParasitarios, pets } =
+  const { controleParasitarios, getControleParasitarios, pets, successMessage, setSuccessMessage, deleteErrorMessage, setDeleteErrorMessage, setDeleteSuccessMessage, deleteSuccessMessage } =
     usePetCareContext();
+
+  const handleCloseSnackbar = () => {
+    setSuccessMessage(false);
+    setDeleteErrorMessage(false);
+    setDeleteSuccessMessage(false);
+  };
 
   useEffect(() => {
     getControleParasitarios();
@@ -152,6 +160,37 @@ export const Dashboard = ({
             }
           )}
       </Container>
+      {!!successMessage && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          // key={{ vertical: "top", horizontal: "right" }}
+          open={!!successMessage}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert severity="success">Registro Salvo com Sucesso!</Alert>
+        </Snackbar>
+      )}
+      {!!deleteSuccessMessage && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={!!deleteSuccessMessage}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert severity="success">Registro deletada com sucesso!</Alert>
+        </Snackbar>
+      )}
+      {!!deleteErrorMessage && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={!!deleteErrorMessage}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert severity="error">Error ao excluir registro!</Alert>
+        </Snackbar>
+      )}
     </>
   );
 };

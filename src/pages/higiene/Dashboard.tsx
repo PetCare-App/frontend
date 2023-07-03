@@ -30,11 +30,13 @@ export const Dashboard = ({
   handleOpenEditForm,
   handleOpenDeleteConfirmation,
 }: DashboardProps) => {
-  const { higienes, getHigienes, pets, successMessage, setSuccessMessage } =
+  const { higienes, getHigienes, pets, successMessage, setSuccessMessage, deleteErrorMessage, setDeleteErrorMessage, deleteSuccessMessage, setDeleteSuccessMessage } =
     usePetCareContext();
 
   const handleCloseSnackbar = () => {
     setSuccessMessage(false);
+    setDeleteErrorMessage(false);
+    setDeleteSuccessMessage(false);
   };
 
   useEffect(() => {
@@ -157,7 +159,27 @@ export const Dashboard = ({
           autoHideDuration={3000}
           onClose={handleCloseSnackbar}
         >
-          <Alert severity="success">Edição feita com sucesso!</Alert>
+          <Alert severity="success">Registro Salvo com Sucesso!</Alert>
+        </Snackbar>
+      )}
+      {!!deleteSuccessMessage && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={!!deleteSuccessMessage}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert severity="success">Higiene deletada com sucesso!</Alert>
+        </Snackbar>
+      )}
+      {!!deleteErrorMessage && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={!!deleteErrorMessage}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert severity="error">Error ao excluir higiene!</Alert>
         </Snackbar>
       )}
     </>

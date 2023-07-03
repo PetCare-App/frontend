@@ -24,5 +24,10 @@ export const getPetsService = async (userId: number) => {
   return await api.get(
   `/users/${userId}`
   )
+}
 
+export const getPetPdfService = async (petId: number) => {
+  return await api.get(
+  `/pets/${petId}/pdf`
+  )
 }

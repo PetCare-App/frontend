@@ -5,6 +5,8 @@ import {
   Typography,
   useTheme,
   Stack,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -46,7 +48,7 @@ export const Form = ({
     resolver: yupResolver(schema),
   });
   const theme = useTheme();
-  const { createControleParasitario, updateControleParasitario, pets } =
+  const { createControleParasitario, updateControleParasitario, pets, errorMessage, setErrorMessage } =
     usePetCareContext();
   const [controleParasitario, setControleParasitario] =
     useState<ControleParasitario>(currentControleParasitario);
@@ -56,6 +58,10 @@ export const Form = ({
     if (response?.status == 201) {
       handleReturnButton();
     }
+  };
+
+  const handleCloseSnackbar = () => {
+    setErrorMessage(false);
   };
 
   const submitEdit = async (data: ControleParasitario) => {
@@ -166,6 +172,17 @@ export const Form = ({
           </Stack>
         </Container>
       </Container>
+      {!!errorMessage && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          // key={{ vertical: "top", horizontal: "right" }}
+          open={!!errorMessage}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert severity="error">Error ao editar registro!</Alert>
+        </Snackbar>
+      )}
     </>
   );
 };
