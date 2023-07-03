@@ -211,8 +211,8 @@ export function ProviderContext({ children }: any) {
   const getPetPdf = async (id: any) => {
     try {
       const response = await getPetPdfService(id);
-      const blob = new Blob([response.data], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
+      // const blob = new Blob([response.data], { type: 'application/pdf' }); isso aqui não precisa pq data já é um blob
+      const url = URL.createObjectURL(response.data);
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', 'arquivo.pdf');

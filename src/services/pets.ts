@@ -27,7 +27,11 @@ export const getPetsService = async (userId: number) => {
 }
 
 export const getPetPdfService = async (petId: number) => {
-  return await api.get(
-  `/pets/${petId}/pdf`
-  )
+    return await api.get(
+    `/pets/${petId}/pdf`,{ 
+    headers: {
+      'Content-Type': 'application/pdf'
+    },       
+    responseType: 'blob' //faltava setar o tipo da response pra ser blob :)
+   })
 }
