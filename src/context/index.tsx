@@ -157,7 +157,8 @@ export function ProviderContext({ children }: any) {
   };
 
   const getControleParasitarios = async () => {
-    try {const petList = pets.map((pet) => pet.id);
+    try {
+      const petList = pets.map((pet) => pet.id);
       let listaControleParasitario = [];
       for await (let id of petList) {
         const response = await getControleParasitariosService(id);
@@ -211,18 +212,17 @@ export function ProviderContext({ children }: any) {
   const getPetPdf = async (id: any) => {
     try {
       const response = await getPetPdfService(id);
-      // const blob = new Blob([response.data], { type: 'application/pdf' }); isso aqui não precisa pq data já é um blob
       const url = URL.createObjectURL(response.data);
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.setAttribute('download', 'arquivo.pdf');
+      link.setAttribute("download", "arquivo.pdf");
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Erro ao baixar o PDF:', error);
+      console.error("Erro ao baixar o PDF:", error);
     }
-};
+  };
 
   const states = {
     pets,
@@ -232,7 +232,7 @@ export function ProviderContext({ children }: any) {
     successMessage,
     errorMessage,
     deleteErrorMessage,
-    deleteSuccessMessage
+    deleteSuccessMessage,
   };
 
   const actions = {
@@ -256,7 +256,7 @@ export function ProviderContext({ children }: any) {
     setErrorMessage,
     setDeleteErrorMessage,
     setDeleteSuccessMessage,
-    getPetPdf
+    getPetPdf,
   };
 
   return (
