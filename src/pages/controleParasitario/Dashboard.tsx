@@ -11,7 +11,7 @@ import {
   IconButton,
   Stack,
   Snackbar,
-  Alert
+  Alert,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -31,8 +31,17 @@ export const Dashboard = ({
   handleOpenEditForm,
   handleOpenDeleteConfirmation,
 }: DashboardProps) => {
-  const { controleParasitarios, getControleParasitarios, pets, successMessage, setSuccessMessage, deleteErrorMessage, setDeleteErrorMessage, setDeleteSuccessMessage, deleteSuccessMessage } =
-    usePetCareContext();
+  const {
+    controleParasitarios,
+    getControleParasitarios,
+    pets,
+    successMessage,
+    setSuccessMessage,
+    deleteErrorMessage,
+    setDeleteErrorMessage,
+    setDeleteSuccessMessage,
+    deleteSuccessMessage,
+  } = usePetCareContext();
 
   const handleCloseSnackbar = () => {
     setSuccessMessage(false);
@@ -178,7 +187,7 @@ export const Dashboard = ({
           autoHideDuration={3000}
           onClose={handleCloseSnackbar}
         >
-          <Alert severity="success">Registro deletada com sucesso!</Alert>
+          <Alert severity="success">Registro deletado com sucesso!</Alert>
         </Snackbar>
       )}
       {!!deleteErrorMessage && (
