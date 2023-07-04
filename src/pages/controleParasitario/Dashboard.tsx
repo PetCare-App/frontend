@@ -95,7 +95,7 @@ export const Dashboard = ({
                   variant="outlined"
                   key={controleParasitario?.id}
                   sx={{
-                    height: "200px",
+                    height: "150px",
                     width: "200px",
                     marginBottom: "20px",
                     padding: "10px",
