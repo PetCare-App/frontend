@@ -11,7 +11,7 @@ import LandingPage from "./pages/landingPage/LandingPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <LandingPage />,
   },
   {
     path: "/login",
@@ -38,60 +38,57 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/users/edit",
+    path: "/usuario/edit",
     element: <App />,
   },
   {
-    path: "/higienes",
+    path: "/higiene",
     element: <App />,
   },
   {
-    path: "/higienes/dashboard",
+    path: "/higiene/dashboard",
     element: <App />,
   },
   {
-    path: "/higienes/create",
+    path: "/higiene/create",
     element: <App />,
   },
   {
-    path: "/higienes/edit",
+    path: "/higiene/edit",
     element: <App />,
   },
   {
-    path: "/controleParasitarios",
+    path: "/controle-parasitario",
     element: <App />,
   },
   {
-    path: "/controleParasitarios/dashboard",
+    path: "/controle-parasitario/dashboard",
     element: <App />,
   },
   {
-    path: "/controleParasitarios/create",
+    path: "/controle-parasitario/create",
     element: <App />,
   },
   {
-    path: "/controleParasitarios/edit",
+    path: "/controle-parasitario/edit",
     element: <App />,
   },  {
-    path: "/vaccines",
+    path: "/vacinas",
     element: <App />,
   },
   {
-    path: "/vaccines/dashboard",
+    path: "/vacinas/dashboard",
     element: <App />,
   },
   {
-    path: "/vaccines/create",
+    path: "/vacinas/create",
     element: <App />,
   },
   {
-    path: "/vaccines/edit",
+    path: "/vacinas/edit",
     element: <App />,
   },
-  {
-    path: "/home",
-    element: <LandingPage />,
-  },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

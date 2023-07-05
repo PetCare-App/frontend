@@ -27,18 +27,11 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 40px;
-  color: black;
-
-  span {
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    padding-top: 15px;
-  }
+  margin-bottom: 20px;
+  width: 200px;
 
   img {
-    width: 12vh;
+    width: 20vh;
   }
 `;
 

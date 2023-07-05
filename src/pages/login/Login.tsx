@@ -1,4 +1,4 @@
-import { Button, Input, TextField } from "@mui/material";
+import { Button, Input, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import {
   Container,
@@ -59,7 +59,7 @@ export const Login = () => {
           id: decodedToken.sub,
           fullname: decodedToken.fullname,
         })
-        navigate("/");
+        navigate("/pets");
       });
     } catch (error) {
       setError("Usuário ou senha incorretos.");
@@ -70,7 +70,6 @@ export const Login = () => {
       <Container>
         <Header>
           <img src={logoImg} alt="Logo" />
-          <span>Por favor digite suas informações de login</span>
         </Header>
         <Content>
           <Form

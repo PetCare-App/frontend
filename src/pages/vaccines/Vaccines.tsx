@@ -27,10 +27,10 @@ export const PetsVaccine = () => {
 
   useEffect(() => {
     !!isFormOpen && !!isCreate
-      ? navigate("/vaccines/create")
+      ? navigate("/vacinas/create")
       : !!isFormOpen && !isCreate
-      ? navigate("/vaccines/edit")
-      : navigate("/vaccines/dashboard");
+      ? navigate("/vacinas/edit")
+      : navigate("/vacinas/dashboard");
   }, [isFormOpen]);
 
   const handleOpenCreateForm = () => {

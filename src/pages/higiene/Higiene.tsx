@@ -27,10 +27,10 @@ export const PetsHigiene = () => {
 
   useEffect(() => {
     !!isFormOpen && !!isCreate
-      ? navigate("/higienes/create")
+      ? navigate("/higiene/create")
       : !!isFormOpen && !isCreate
-      ? navigate("/higienes/edit")
-      : navigate("/higienes/dashboard");
+      ? navigate("/higiene/edit")
+      : navigate("/higiene/dashboard");
   }, [isFormOpen]);
 
   const handleOpenCreateForm = () => {

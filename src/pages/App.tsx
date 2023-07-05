@@ -54,10 +54,10 @@ function App() {
 
   useEffect(() => {
     if (content == 1) navigate("/pets");
-    if (content == 2) navigate("/vaccines");
+    if (content == 2) navigate("/vacinas");
     if (content == 3) navigate("/higiene");
-    if (content == 4) navigate("/controleParasitario");
-    if (content == 6) navigate("/users/edit");
+    if (content == 4) navigate("/controle-parasitario");
+    if (content == 6) navigate("/usuario/edit");
   }, [content]);
 
   useEffect(() => {
@@ -118,7 +118,23 @@ function App() {
                       setMenuOpen(false);
                     }}
                   >
-                    opção 2
+                    Vacinas
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setContent(3);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    Higiene
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setContent(4);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    Controle parasitário
                   </MenuItem>
                 </Menu>
               )}
