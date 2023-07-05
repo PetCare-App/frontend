@@ -23,6 +23,8 @@ import {
   getControleParasitariosService,
   updateControleParasitarioService,
 } from "../services/controleParasitarios";
+import { Vaccine } from "../types/vaccines";
+import { createVaccineService, deleteVaccineService, getVaccinesService, updateVaccineService } from "../services/vaccinesService";
 
 export const PetCareContext = createContext({} as any);
 
@@ -33,6 +35,8 @@ export function ProviderContext({ children }: any) {
   const [controleParasitarios, setControleParasitarios] = useState<
     ControleParasitario[]
   >([]);
+  const [vaccines, setVaccines] = useState<Vaccine[]>([]);
+
   const [successMessage, setSuccessMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [deleteSuccessMessage, setDeleteSuccessMessage] = useState(false);
@@ -107,13 +111,9 @@ export function ProviderContext({ children }: any) {
 
   const getHigienes = async () => {
     try {
-      const petList = pets.map((pet) => pet.id);
-      let listaHigiene = [];
-      for await (let id of petList) {
-        const response = await getHigienesService(id);
-        listaHigiene.push(...response.data.hygiene);
-      }
-      setHigienes(listaHigiene);
+
+      const response = await getHigienesService();
+      setHigienes(response.data);
     } catch (error) {
       throw error;
     }
@@ -158,13 +158,9 @@ export function ProviderContext({ children }: any) {
 
   const getControleParasitarios = async () => {
     try {
-      const petList = pets.map((pet) => pet.id);
-      let listaControleParasitario = [];
-      for await (let id of petList) {
-        const response = await getControleParasitariosService(id);
-        listaControleParasitario.push(...response.data.parasiteControl);
-      }
-      setControleParasitarios(listaControleParasitario);
+      
+      const response = await getControleParasitariosService(); 
+      setControleParasitarios(response.data);
     } catch (error) {
       throw error;
     }
@@ -209,6 +205,52 @@ export function ProviderContext({ children }: any) {
     }
   };
 
+  const getVaccines = async () => {
+    try {
+      const response = await getVaccinesService();
+      setVaccines(response.data);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const createVaccine = async (vaccineData: any) => {
+    try {
+      const data = {
+        ...vaccineData,
+        petId: parseInt(vaccineData.petId, 10),
+      };
+      const response = await createVaccineService(data);
+      setSuccessMessage(true);
+      return response;
+    } catch (error) {
+      setErrorMessage(true);
+      throw error;
+    }
+  };
+
+  const updateVaccine = async (vaccineData: any) => {
+    try {
+      const response = await updateVaccineService(vaccineData);
+      setSuccessMessage(true);
+      return response;
+    } catch (error) {
+      setErrorMessage(true);
+      throw error;
+    }
+  };
+
+  const deleteVaccine = async (id: any) => {
+    try {
+      const response = await deleteVaccineService(id);
+      setDeleteSuccessMessage(true);
+      return response;
+    } catch (error) {
+      setDeleteErrorMessage(true);
+      throw error;
+    }
+  };
+
   const getPetPdf = async (id: any) => {
     try {
       const response = await getPetPdfService(id);
@@ -233,6 +275,7 @@ export function ProviderContext({ children }: any) {
     errorMessage,
     deleteErrorMessage,
     deleteSuccessMessage,
+    vaccines
   };
 
   const actions = {
@@ -257,6 +300,11 @@ export function ProviderContext({ children }: any) {
     setDeleteErrorMessage,
     setDeleteSuccessMessage,
     getPetPdf,
+    setVaccines,
+    getVaccines,
+    createVaccine,
+    updateVaccine,
+    deleteVaccine
   };
 
   return (

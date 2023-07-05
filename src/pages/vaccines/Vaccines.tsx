@@ -13,62 +13,54 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Dashboard } from "./Dashboard";
 import { Form } from "./Form";
-import { ControleParasitario } from "../../types/controleParasitario";
+import { Vaccine } from "../../types/vaccines";
 
-export const PetsControleParasitario = () => {
+export const PetsVaccine = () => {
   const navigate = useNavigate();
-  const {
-    controleParasitarios,
-    getControleParasitarios,
-    deleteControleParasitario,
-  } = usePetCareContext();
+  const { vaccines, getVaccines, deleteVaccine } = usePetCareContext();
 
   const [isFormOpen, setOpenForm] = useState(false);
   const [isCreate, setCreate] = useState(false);
   const [isDeleteConfirmation, setDeleteConfirmation] = useState(false);
 
-  const [controleParasitario, setControleParasitario] = useState(
-    {} as ControleParasitario
-  );
+  const [vaccine, setVaccine] = useState({} as Vaccine);
 
   useEffect(() => {
     !!isFormOpen && !!isCreate
-      ? navigate("/controleParasitarios/create")
+      ? navigate("/vaccines/create")
       : !!isFormOpen && !isCreate
-      ? navigate("/controleParasitarios/edit")
-      : navigate("/controleParasitarios/dashboard");
+      ? navigate("/vaccines/edit")
+      : navigate("/vaccines/dashboard");
   }, [isFormOpen]);
 
   const handleOpenCreateForm = () => {
-    setControleParasitario({} as ControleParasitario);
+    setVaccine({} as Vaccine);
     setOpenForm(true);
     setCreate(true);
   };
 
-  const handleOpenEditForm = (controleParasitario: ControleParasitario) => {
+  const handleOpenEditForm = (vaccine: Vaccine) => {
     setOpenForm(true);
     setCreate(false);
-    setControleParasitario(controleParasitario);
+    setVaccine(vaccine);
   };
 
-  const handleOpenDeleteConfirmation = (
-    controleParasitario: ControleParasitario
-  ) => {
+  const handleOpenDeleteConfirmation = (vaccines: Vaccine) => {
     setDeleteConfirmation(true);
-    setControleParasitario(controleParasitario);
+    setVaccine(vaccines);
   };
 
   const handleReturnButton = () => {
-    setControleParasitario({} as ControleParasitario);
+    setVaccine({} as Vaccine);
     setOpenForm(false);
     setCreate(false);
   };
 
-  const handleDeleteControleParasitarioButton = async (id: string) => {
-    const response = await deleteControleParasitario(id);
+  const handleDeleteVaccineButton = async (id: string) => {
+    const response = await deleteVaccine(id);
     setDeleteConfirmation(false);
-    setControleParasitario({} as ControleParasitario);
-    getControleParasitarios();
+    setVaccine({} as Vaccine);
+    getVaccines();
   };
 
   return (
@@ -83,7 +75,7 @@ export const PetsControleParasitario = () => {
         <Form
           isCreate={isCreate}
           handleReturnButton={handleReturnButton}
-          currentControleParasitario={controleParasitario}
+          currentVaccine={vaccine}
         ></Form>
       )}
 
@@ -92,21 +84,17 @@ export const PetsControleParasitario = () => {
           open={isDeleteConfirmation}
           onClose={() => setDeleteConfirmation(false)}
         >
-          <DialogTitle>Deletar pet</DialogTitle>
+          <DialogTitle>Deletar Vacina</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Você confirma que gostaria de deletar o pet?
+              Você confirma que gostaria de deletar esta vacina?
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setDeleteConfirmation(false)}>
               Cancelar
             </Button>
-            <Button
-              onClick={() =>
-                handleDeleteControleParasitarioButton(controleParasitario.id)
-              }
-            >
+            <Button onClick={() => handleDeleteVaccineButton(vaccine.id)}>
               Deletar
             </Button>
           </DialogActions>

@@ -18,6 +18,7 @@ import { usePetCareContext } from "../context";
 import { Users } from "./users/Users";
 import { PetsHigiene } from "./higiene/Higiene";
 import { PetsControleParasitario } from "./controleParasitario/ControleParasitario";
+import { PetsVaccine } from "./vaccines/Vaccines";
 
 const Logo = styled("img")`
   height: 60px;
@@ -53,7 +54,7 @@ function App() {
 
   useEffect(() => {
     if (content == 1) navigate("/pets");
-    if (content == 2) navigate("/");
+    if (content == 2) navigate("/vaccines");
     if (content == 3) navigate("/higiene");
     if (content == 4) navigate("/controleParasitario");
     if (content == 6) navigate("/users/edit");
@@ -125,6 +126,8 @@ function App() {
           )}
           {content == 1 ? (
             <MyPets />
+          ) :content == 2 ? (
+            <PetsVaccine />
           ) : content == 3 ? (
             <PetsHigiene />
           ) : content == 4 ? (
