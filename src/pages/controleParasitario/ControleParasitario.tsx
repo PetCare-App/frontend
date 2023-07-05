@@ -32,10 +32,6 @@ export const PetsControleParasitario = () => {
   );
 
   useEffect(() => {
-    getControleParasitarios();
-  }, []);
-
-  useEffect(() => {
     !!isFormOpen && !!isCreate
       ? navigate("/controleParasitarios/create")
       : !!isFormOpen && !isCreate
