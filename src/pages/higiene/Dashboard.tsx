@@ -14,7 +14,6 @@ import {
   Alert,
 } from "@mui/material";
 import { Higiene } from "../../types/higiene";
-import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -30,8 +29,17 @@ export const Dashboard = ({
   handleOpenEditForm,
   handleOpenDeleteConfirmation,
 }: DashboardProps) => {
-  const { higienes, getHigienes, pets, successMessage, setSuccessMessage, deleteErrorMessage, setDeleteErrorMessage, deleteSuccessMessage, setDeleteSuccessMessage } =
-    usePetCareContext();
+  const {
+    higienes,
+    getHigienes,
+    pets,
+    successMessage,
+    setSuccessMessage,
+    deleteErrorMessage,
+    setDeleteErrorMessage,
+    deleteSuccessMessage,
+    setDeleteSuccessMessage,
+  } = usePetCareContext();
 
   const handleCloseSnackbar = () => {
     setSuccessMessage(false);
@@ -82,7 +90,7 @@ export const Dashboard = ({
                 variant="outlined"
                 key={higiene?.id}
                 sx={{
-                  height: "200px",
+                  height: "150px",
                   width: "200px",
                   marginBottom: "20px",
                   padding: "10px",

@@ -254,18 +254,17 @@ export function ProviderContext({ children }: any) {
   const getPetPdf = async (id: any) => {
     try {
       const response = await getPetPdfService(id);
-      const blob = new Blob([response.data], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
+      const url = URL.createObjectURL(response.data);
+      const link = document.createElement("a");
       link.href = url;
-      link.setAttribute('download', 'arquivo.pdf');
+      link.setAttribute("download", "arquivo.pdf");
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Erro ao baixar o PDF:', error);
+      console.error("Erro ao baixar o PDF:", error);
     }
-};
+  };
 
   const states = {
     pets,
