@@ -55,8 +55,8 @@ function App() {
   useEffect(() => {
     if (content == 1) navigate("/pets");
     if (content == 2) navigate("/vaccines");
-    if (content == 3) navigate("/higiene");
-    if (content == 4) navigate("/controleParasitario");
+    if (content == 3) navigate("/higienes");
+    if (content == 4) navigate("/controleParasitarios");
     if (content == 6) navigate("/users/edit");
   }, [content]);
 
@@ -126,7 +126,7 @@ function App() {
           )}
           {content == 1 ? (
             <MyPets />
-          ) :content == 2 ? (
+          ) : content == 2 ? (
             <PetsVaccine />
           ) : content == 3 ? (
             <PetsHigiene />
