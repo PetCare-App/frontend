@@ -142,7 +142,7 @@ function App() {
           )}
           {content == 1 ? (
             <MyPets />
-          ) :content == 2 ? (
+          ) : content == 2 ? (
             <PetsVaccine />
           ) : content == 3 ? (
             <PetsHigiene />
