@@ -72,6 +72,21 @@ const router = createBrowserRouter([
   {
     path: "/controleParasitarios/edit",
     element: <App />,
+  },  {
+    path: "/vaccines",
+    element: <App />,
+  },
+  {
+    path: "/vaccines/dashboard",
+    element: <App />,
+  },
+  {
+    path: "/vaccines/create",
+    element: <App />,
+  },
+  {
+    path: "/vaccines/edit",
+    element: <App />,
   },
   {
     path: "/home",
