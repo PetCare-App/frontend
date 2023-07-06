@@ -17,7 +17,7 @@ import { Pet } from '../../types/pets';
 
 export const MyPets = () => {
 	const navigate = useNavigate();
-	const { pets, getPets, deletePet, getPetPdf } = usePetCareContext();
+	const { getPets, deletePet, getPetPdf } = usePetCareContext();
 
 	const [isFormOpen, setOpenForm] = useState(false);
 	const [isCreate, setCreate] = useState(false);
@@ -51,7 +51,7 @@ export const MyPets = () => {
 	};
 
 	const handlePdf = (pet: Pet) => {
-		getPetPdf(pet.id);
+		getPetPdf(pet);
 	};
 
 	const handleReturnButton = () => {
