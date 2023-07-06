@@ -24,6 +24,7 @@ import Dog from './../../assets/dog.png';
 import Cat from './../../assets/cat.png';
 import PetCertificate from '../../components/petCertificate/PetCertificate';
 import { StartHere } from '../../components/startHere';
+import SnackbarComponent from '../../components/snackbar/Snackbar';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -38,26 +39,11 @@ export const Dashboard = ({
 	handleOpenEditForm,
 	handleOpenDeleteConfirmation,
 }: DashboardProps) => {
-	const {
-		pets,
-		getPets,
-		successMessage,
-		setSuccessMessage,
-		deleteErrorMessage,
-		setDeleteErrorMessage,
-		deleteSuccessMessage,
-		setDeleteSuccessMessage,
-	} = usePetCareContext();
+	const { pets, getPets, snackbarOpen } = usePetCareContext();
 
 	useEffect(() => {
 		getPets();
 	}, []);
-
-	const handleCloseSnackbar = () => {
-		setSuccessMessage(false);
-		setDeleteErrorMessage(false);
-		setDeleteSuccessMessage(false);
-	};
 
 	const dateFormat = (date: any) => {
 		const deleteTimestamp = date?.split('T')[0];
@@ -188,37 +174,7 @@ export const Dashboard = ({
 					<StartHere title={'Comece adicionando seu pet!'} />
 				)}
 			</Container>
-			{!!successMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					// key={{ vertical: "top", horizontal: "right" }}
-					open={!!successMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Registro Salvo com Sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!deleteSuccessMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!deleteSuccessMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Pet deletado com sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!deleteErrorMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!deleteErrorMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='error'>Error ao excluir pet!</Alert>
-				</Snackbar>
-			)}
+			{!!snackbarOpen.status && <SnackbarComponent />}
 		</>
 	);
 };

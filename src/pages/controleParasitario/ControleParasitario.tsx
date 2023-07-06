@@ -17,11 +17,8 @@ import { ControleParasitario } from '../../types/controleParasitario';
 
 export const PetsControleParasitario = () => {
 	const navigate = useNavigate();
-	const {
-		controleParasitarios,
-		getControleParasitarios,
-		deleteControleParasitario,
-	} = usePetCareContext();
+	const { getControleParasitarios, deleteControleParasitario } =
+		usePetCareContext();
 
 	const [isFormOpen, setOpenForm] = useState(false);
 	const [isCreate, setCreate] = useState(false);

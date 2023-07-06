@@ -13,6 +13,7 @@ import { usePetCareContext } from '../../context';
 import { User } from '../../types/users';
 import { useState, useEffect } from 'react';
 import { Input, FormControl, FormLabel, Button } from '@mui/joy';
+import SnackbarComponent from '../../components/snackbar/Snackbar';
 
 const schema = yup.object().shape({
 	fullname: yup.string().required('Campo nome completo é obrigatório'),
@@ -34,21 +35,9 @@ export const Form = ({}: FormProps) => {
 		resolver: yupResolver(schema),
 	});
 	const theme = useTheme();
-	const {
-		updateUser,
-		user: currentUser,
-		errorMessage,
-		setErrorMessage,
-		successMessage,
-		setSuccessMessage,
-	} = usePetCareContext();
+	const { updateUser, user: currentUser, snackbarOpen } = usePetCareContext();
 
 	const [user, setUser] = useState<User>(currentUser);
-
-	const handleCloseSnackbar = () => {
-		setErrorMessage(false);
-		setSuccessMessage(false);
-	};
 
 	useEffect(() => {
 		setValue('fullname', currentUser.fullname);
@@ -109,28 +98,7 @@ export const Form = ({}: FormProps) => {
 					</Stack>
 				</Container>
 			</Container>
-			{!!successMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					// key={{ vertical: "top", horizontal: "right" }}
-					open={!!successMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Registro Salvo com Sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!errorMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					// key={{ vertical: "top", horizontal: "right" }}
-					open={!!errorMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='error'>Error ao salvar higiene!</Alert>
-				</Snackbar>
-			)}
+			{!!snackbarOpen.status && <SnackbarComponent />}
 		</>
 	);
 };

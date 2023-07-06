@@ -179,12 +179,11 @@ export const Dashboard = ({
 			{!!successMessage && (
 				<Snackbar
 					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					// key={{ vertical: "top", horizontal: "right" }}
 					open={!!successMessage}
 					autoHideDuration={3000}
 					onClose={handleCloseSnackbar}
 				>
-					<Alert severity='success'>Registro Salvo com Sucesso!</Alert>
+					<Alert severity='success'>Registro salvo com Sucesso!</Alert>
 				</Snackbar>
 			)}
 			{!!deleteSuccessMessage && (

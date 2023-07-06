@@ -42,15 +42,21 @@ export function ProviderContext({ children }: any) {
 	>([]);
 	const [vaccines, setVaccines] = useState<Vaccine[]>([]);
 
-	const [successMessage, setSuccessMessage] = useState(false);
-	const [errorMessage, setErrorMessage] = useState(false);
-	const [deleteSuccessMessage, setDeleteSuccessMessage] = useState(false);
-	const [deleteErrorMessage, setDeleteErrorMessage] = useState(false);
+	const [snackbarOpen, setSnackbarOpen] = useState<{
+		status: boolean;
+		type: string;
+		message: string;
+	}>({
+		status: false,
+		type: '',
+		message: '',
+	});
 
 	const getPets = async () => {
 		try {
 			const response = await getPetsService(user.id);
 			setPets(response.data.pets);
+			// setPets([]);
 		} catch (error) {
 			throw error;
 		}
@@ -60,11 +66,19 @@ export function ProviderContext({ children }: any) {
 		try {
 			petData.userId = user.id;
 			petData.weight = parseFloat(petData.weight);
-			setSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Sucesso ao cadastrar seu pet :)',
+			});
 			const response = await createPetService(petData);
 			return response;
 		} catch (error) {
-			setErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos cadastrar seu pet :(',
+			});
 			throw error;
 		}
 	};
@@ -73,10 +87,18 @@ export function ProviderContext({ children }: any) {
 		try {
 			petData.weight = parseFloat(petData.weight);
 			const response = await updatePetService(petData);
-			setSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Sucesso ao alterar seu pet :)',
+			});
 			return response;
 		} catch (error) {
-			setErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos alterar seu pet :(',
+			});
 			throw error;
 		}
 	};
@@ -84,10 +106,18 @@ export function ProviderContext({ children }: any) {
 	const deletePet = async (id: any) => {
 		try {
 			const response = await deletePetService(id);
-			setDeleteSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Sucesso ao deletar seu pet',
+			});
 			return response;
 		} catch (error) {
-			setDeleteErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos deletar seu pet :(',
+			});
 			throw error;
 		}
 	};
@@ -106,10 +136,18 @@ export function ProviderContext({ children }: any) {
 			delete userData.password;
 			delete userData.pets;
 			const response = await updateUserService(userData);
-			setSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Cadastro alterado com sucesso! :)',
+			});
 			return response;
 		} catch (error) {
-			setErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos alterar seu cadastro :(',
+			});
 			throw error;
 		}
 	};
@@ -130,10 +168,18 @@ export function ProviderContext({ children }: any) {
 				petId: parseInt(higieneData.petId, 10),
 			};
 			const response = await createHigieneService(data);
-			setSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Registro de higiene realizado com sucesso! :)',
+			});
 			return response;
 		} catch (error) {
-			setErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos criar este registro de higiene :(',
+			});
 			throw error;
 		}
 	};
@@ -141,10 +187,18 @@ export function ProviderContext({ children }: any) {
 	const updateHigiene = async (higieneData: any) => {
 		try {
 			const response = await updateHigieneService(higieneData);
-			setSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Registro de higiene alterado com sucesso! :)',
+			});
 			return response;
 		} catch (error) {
-			setErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos alterar este registro de higiene :(',
+			});
 			throw error;
 		}
 	};
@@ -152,10 +206,18 @@ export function ProviderContext({ children }: any) {
 	const deleteHigiene = async (id: any) => {
 		try {
 			const response = await deleteHigieneService(id);
-			setDeleteSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Registro de higiene deletado com sucesso! :)',
+			});
 			return response;
 		} catch (error) {
-			setDeleteErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos deletar este registro de higiene :(',
+			});
 			throw error;
 		}
 	};
@@ -176,10 +238,18 @@ export function ProviderContext({ children }: any) {
 				petId: parseInt(controleParasitarioData.petId, 10),
 			};
 			const response = await createControleParasitarioService(data);
-			setSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Registro de medicamento realizado com sucesso! :)',
+			});
 			return response;
 		} catch (error) {
-			setErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos criar este registro de medicamento :(',
+			});
 			throw error;
 		}
 	};
@@ -189,10 +259,18 @@ export function ProviderContext({ children }: any) {
 			const response = await updateControleParasitarioService(
 				controleParasitarioData
 			);
-			setSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Registro de medicamento alterado com sucesso! :)',
+			});
 			return response;
 		} catch (error) {
-			setErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos alterar este registro de medicamento :(',
+			});
 			throw error;
 		}
 	};
@@ -200,10 +278,18 @@ export function ProviderContext({ children }: any) {
 	const deleteControleParasitario = async (id: any) => {
 		try {
 			const response = await deleteControleParasitarioService(id);
-			setDeleteSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Registro de medicamento deletado com sucesso! :)',
+			});
 			return response;
 		} catch (error) {
-			setDeleteErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos deletar este registro de medicamento :(',
+			});
 			throw error;
 		}
 	};
@@ -224,10 +310,18 @@ export function ProviderContext({ children }: any) {
 				petId: parseInt(vaccineData.petId, 10),
 			};
 			const response = await createVaccineService(data);
-			setSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Registro de vacina realizado com sucesso! :)',
+			});
 			return response;
 		} catch (error) {
-			setErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos criar este registro de vacina :(',
+			});
 			throw error;
 		}
 	};
@@ -235,10 +329,18 @@ export function ProviderContext({ children }: any) {
 	const updateVaccine = async (vaccineData: any) => {
 		try {
 			const response = await updateVaccineService(vaccineData);
-			setSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Registro de vacina alterado com sucesso! :)',
+			});
 			return response;
 		} catch (error) {
-			setErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos alterar este registro de vacina :(',
+			});
 			throw error;
 		}
 	};
@@ -246,10 +348,18 @@ export function ProviderContext({ children }: any) {
 	const deleteVaccine = async (id: any) => {
 		try {
 			const response = await deleteVaccineService(id);
-			setDeleteSuccessMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'success',
+				message: 'Registro de vacina deletado com sucesso! :)',
+			});
 			return response;
 		} catch (error) {
-			setDeleteErrorMessage(true);
+			setSnackbarOpen({
+				status: true,
+				type: 'error',
+				message: 'Nós não conseguimos deletar este registro de vacina :(',
+			});
 			throw error;
 		}
 	};
@@ -274,10 +384,7 @@ export function ProviderContext({ children }: any) {
 		user,
 		higienes,
 		controleParasitarios,
-		successMessage,
-		errorMessage,
-		deleteErrorMessage,
-		deleteSuccessMessage,
+		snackbarOpen,
 		vaccines,
 	};
 
@@ -298,10 +405,7 @@ export function ProviderContext({ children }: any) {
 		createControleParasitario,
 		updateControleParasitario,
 		deleteControleParasitario,
-		setSuccessMessage,
-		setErrorMessage,
-		setDeleteErrorMessage,
-		setDeleteSuccessMessage,
+		setSnackbarOpen,
 		getPetPdf,
 		setVaccines,
 		getVaccines,

@@ -18,6 +18,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { StartHere } from '../../components/startHere';
+import SnackbarComponent from '../../components/snackbar/Snackbar';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -30,23 +31,7 @@ export const Dashboard = ({
 	handleOpenEditForm,
 	handleOpenDeleteConfirmation,
 }: DashboardProps) => {
-	const {
-		higienes,
-		getHigienes,
-		pets,
-		successMessage,
-		setSuccessMessage,
-		deleteErrorMessage,
-		setDeleteErrorMessage,
-		deleteSuccessMessage,
-		setDeleteSuccessMessage,
-	} = usePetCareContext();
-
-	const handleCloseSnackbar = () => {
-		setSuccessMessage(false);
-		setDeleteErrorMessage(false);
-		setDeleteSuccessMessage(false);
-	};
+	const { higienes, getHigienes, pets, snackbarOpen } = usePetCareContext();
 
 	useEffect(() => {
 		getHigienes();
@@ -166,37 +151,7 @@ export const Dashboard = ({
 					<StartHere title={'Comece adicionando um serviço de higiene!'} />
 				)}
 			</Container>
-			{!!successMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					// key={{ vertical: "top", horizontal: "right" }}
-					open={!!successMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Registro Salvo com Sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!deleteSuccessMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!deleteSuccessMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Higiene deletada com sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!deleteErrorMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!deleteErrorMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='error'>Error ao excluir higiene!</Alert>
-				</Snackbar>
-			)}
+			{!!snackbarOpen.status && <SnackbarComponent />}
 		</>
 	);
 };
