@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
-          )
+          ),
         )}
       </List>
     </Box>

@@ -1,123 +1,126 @@
-import { Button, Input, TextField, Typography } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Button, Input, TextField, Typography } from '@mui/material';
+import { useForm } from 'react-hook-form';
 import {
-  Container,
-  Content,
-  ErrorSpan,
-  Form,
-  Header,
-  LabelSignup,
-  Strong,
-  StyledTextField,
-} from "./styles";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { login } from "../../services/loginService";
-import { Link, useNavigate } from "react-router-dom";
-import Background from "../../components/background";
-import logoImg from "../../assets/logo.png";
-import { useState } from "react";
-import { usePetCareContext } from "../../context";
+	Container,
+	Content,
+	ErrorSpan,
+	Form,
+	Header,
+	LabelSignup,
+	Strong,
+	StyledTextField,
+} from './styles';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { login } from '../../services/loginService';
+import { Link, useNavigate } from 'react-router-dom';
+import Background from '../../components/background';
+import logoImg from '../../assets/logo.png';
+import { useState } from 'react';
+import { usePetCareContext } from '../../context';
 
 const schema = yup.object().shape({
-  email: yup
-    .string()
-    .required("Campo e-mail obrigatório")
-    .email("Digite um e-mail válido!"),
-  password: yup
-    .string()
-    .required("Campo senha é obrigatório")
-    .min(8, "Senha deve conter no mínimo 8 dígitos"),
+	email: yup
+		.string()
+		.required('Campo e-mail obrigatório')
+		.email('Digite um e-mail válido!'),
+	password: yup
+		.string()
+		.required('Campo senha é obrigatório')
+		.min(8, 'Senha deve conter no mínimo 8 dígitos'),
 });
 
 interface FormData {
-  email: string;
-  password: string;
+	email: string;
+	password: string;
 }
 
 export const Login = () => {
-  const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
+	const navigate = useNavigate();
+	const [error, setError] = useState<string | null>(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<FormData>({
-    mode: "onChange",
-    resolver: yupResolver(schema),
-  });
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isValid },
+	} = useForm<FormData>({
+		mode: 'onChange',
+		resolver: yupResolver(schema),
+	});
 
-  const { setUser } = usePetCareContext();
+	const { setUser } = usePetCareContext();
 
-  const onSubmit = async (data: FormData) => {
-    try {
-      await login(data).then((response) => {
-        const decodedToken = JSON.parse(
-          atob(response.data.token.split(".")[1])
-        );
-        setUser({
-          email: decodedToken.email,
-          id: decodedToken.sub,
-          fullname: decodedToken.fullname,
-        });
-        navigate("/pets");
-      });
-    } catch (error) {
-      setError("Usuário ou senha incorretos.");
-    }
-  };
-  return (
-    <Background>
-      <Container>
-        <Header>
-          <img src={logoImg} alt="Logo" />
-        </Header>
-        <Content>
-          <Form
-            style={{ border: "5px black" }}
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            {error && <div>{error}</div>}
-            <StyledTextField
-              id="outlined-basic"
-              label="E-mail"
-              variant="outlined"
-              {...register("email")}
-            />
-            {errors.email && <ErrorSpan>{errors.email.message}</ErrorSpan>}
-            <StyledTextField
-              id="outlined-basic"
-              label="Senha"
-              variant="outlined"
-              type="password"
-              {...register("password", { required: true })}
-            />
-            {errors.password && (
-              <ErrorSpan>{errors.password.message}</ErrorSpan>
-            )}
+	const onSubmit = async (data: FormData) => {
+		try {
+			await login(data).then((response) => {
+				const decodedToken = JSON.parse(
+					atob(response.data.token.split('.')[1])
+				);
+				setUser({
+					email: decodedToken.email,
+					id: decodedToken.sub,
+					fullname: decodedToken.fullname,
+				});
+				navigate('/pets');
+			});
+		} catch (error) {
+			setError('Usuário ou senha incorretos.');
+		}
+	};
+	return (
+		<Background>
+			<Container>
+				<Header>
+					<img
+						src={logoImg}
+						alt='Logo'
+					/>
+				</Header>
+				<Content>
+					<Form
+						style={{ border: '5px black' }}
+						onSubmit={handleSubmit(onSubmit)}
+					>
+						{error && <div>{error}</div>}
+						<StyledTextField
+							id='outlined-basic'
+							label='E-mail'
+							variant='outlined'
+							{...register('email')}
+						/>
+						{errors.email && <ErrorSpan>{errors.email.message}</ErrorSpan>}
+						<StyledTextField
+							id='outlined-basic'
+							label='Senha'
+							variant='outlined'
+							type='password'
+							{...register('password', { required: true })}
+						/>
+						{errors.password && (
+							<ErrorSpan>{errors.password.message}</ErrorSpan>
+						)}
 
-            <Button
-              style={{
-                backgroundColor: "#FAB06A",
-                color: "#fff",
-                width: "100%",
-              }}
-              disabled={!isValid}
-              variant="contained"
-              type="submit"
-            >
-              Login
-            </Button>
-            <LabelSignup>
-              Não tem uma conta?
-              <Strong>
-                <Link to="/signup">&nbsp;Registre-se</Link>
-              </Strong>
-            </LabelSignup>
-          </Form>
-        </Content>
-      </Container>
-    </Background>
-  );
+						<Button
+							style={{
+								backgroundColor: '#FAB06A',
+								color: '#fff',
+								width: '100%',
+							}}
+							disabled={!isValid}
+							variant='contained'
+							type='submit'
+						>
+							Login
+						</Button>
+						<LabelSignup>
+							Não tem uma conta?
+							<Strong>
+								<Link to='/signup'>&nbsp;Registre-se</Link>
+							</Strong>
+						</LabelSignup>
+					</Form>
+				</Content>
+			</Container>
+		</Background>
+	);
 };
