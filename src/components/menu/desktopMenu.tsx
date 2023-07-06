@@ -61,7 +61,7 @@ export const DesktopMenu = ({ content, setContent }: MenuProps) => {
 						color='inherit'
 						aria-label='Logout'
 					>
-						<ExitToAppIcon />
+						<ExitToAppIcon style={{ color: 'grey' }} />
 					</IconButton>
 				</ListItemButton>
 				<ListItem>
@@ -69,7 +69,10 @@ export const DesktopMenu = ({ content, setContent }: MenuProps) => {
 						style={{ display: 'flex', justifyContent: 'center' }}
 						onClick={() => setContent(6)}
 					>
-						<PersonIcon fontSize='large' />
+						<PersonIcon
+							fontSize='large'
+							style={{ color: 'grey' }}
+						/>
 					</ListItemButton>
 				</ListItem>
 			</ListItem>
