@@ -23,6 +23,7 @@ import Paw from './../../assets/paw.png';
 import Dog from './../../assets/dog.png';
 import Cat from './../../assets/cat.png';
 import PetCertificate from '../../components/petCertificate/PetCertificate';
+import { StartHere } from '../../components/startHere';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -89,7 +90,7 @@ export const Dashboard = ({
 					alignItems: 'center',
 				}}
 			>
-				{!!pets.length &&
+				{!!pets.length ? (
 					pets.map((pet: Pet) => {
 						return (
 							<Card
@@ -182,7 +183,10 @@ export const Dashboard = ({
 								</CardActions>
 							</Card>
 						);
-					})}
+					})
+				) : (
+					<StartHere title={'Comece adicionando seu pet!'} />
+				)}
 			</Container>
 			{!!successMessage && (
 				<Snackbar

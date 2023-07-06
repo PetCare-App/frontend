@@ -17,6 +17,7 @@ import { Higiene } from '../../types/higiene';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { StartHere } from '../../components/startHere';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -82,7 +83,7 @@ export const Dashboard = ({
 					alignItems: 'center',
 				}}
 			>
-				{!!higienes.length &&
+				{!!higienes.length ? (
 					higienes.map((higiene: Higiene) => {
 						const pet = pets.find((pet: any) => pet.id === higiene.petId);
 						return (
@@ -160,7 +161,10 @@ export const Dashboard = ({
 								</CardActions>
 							</Card>
 						);
-					})}
+					})
+				) : (
+					<StartHere title={'Comece adicionando um serviço de higiene!'} />
+				)}
 			</Container>
 			{!!successMessage && (
 				<Snackbar

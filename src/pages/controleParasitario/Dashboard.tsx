@@ -17,6 +17,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ControleParasitario } from '../../types/controleParasitario';
+import { StartHere } from '../../components/startHere';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -84,7 +85,7 @@ export const Dashboard = ({
 					alignItems: 'center',
 				}}
 			>
-				{!!controleParasitarios.length &&
+				{!!controleParasitarios.length ? (
 					controleParasitarios.map(
 						(controleParasitario: ControleParasitario) => {
 							const pet = pets.find(
@@ -170,7 +171,10 @@ export const Dashboard = ({
 								</Card>
 							);
 						}
-					)}
+					)
+				) : (
+					<StartHere title={'Comece adicionando o medicamento!'} />
+				)}
 			</Container>
 			{!!successMessage && (
 				<Snackbar

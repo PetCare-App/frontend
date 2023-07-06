@@ -19,6 +19,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Vaccine } from '../../types/vaccines';
 import { Pet } from '../../types/pets';
+import { StartHere } from '../../components/startHere';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -84,7 +85,7 @@ export const Dashboard = ({
 					alignItems: 'center',
 				}}
 			>
-				{!!vaccines.length &&
+				{!!vaccines.length ? (
 					vaccines.map((vaccine: Vaccine) => {
 						const pet = pets.find((pet: Pet) => pet.id === vaccines.petId);
 						return (
@@ -162,7 +163,10 @@ export const Dashboard = ({
 								</CardActions>
 							</Card>
 						);
-					})}
+					})
+				) : (
+					<StartHere title={'Comece adicionando uma vacina!'} />
+				)}
 			</Container>
 			{!!successMessage && (
 				<Snackbar
