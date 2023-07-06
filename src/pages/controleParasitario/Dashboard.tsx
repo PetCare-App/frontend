@@ -18,6 +18,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ControleParasitario } from '../../types/controleParasitario';
 import { StartHere } from '../../components/startHere';
+import { dateFormat } from '../../utils/dateFormat';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -53,15 +54,6 @@ export const Dashboard = ({
 	useEffect(() => {
 		getControleParasitarios();
 	}, []);
-
-	const dateFormat = (date: any) => {
-		const deleteTimestamp = date?.split('T')[0];
-		const day = deleteTimestamp.split('-')[2];
-		const month = deleteTimestamp.split('-')[1];
-		const year = deleteTimestamp.split('-')[0];
-
-		return `${day}/${month}/${year}`;
-	};
 
 	return (
 		<>
@@ -143,7 +135,7 @@ export const Dashboard = ({
 												sx={{ fontSize: 15 }}
 												color='text.primary'
 											>
-												{`Data: ${dateFormat(controleParasitario?.date)}`}
+												{`Data: ${dateFormat(controleParasitario.date)}`}
 											</Typography>
 										</Stack>
 									</CardContent>
