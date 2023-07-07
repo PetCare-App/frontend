@@ -57,10 +57,10 @@ export const PetsHigiene = () => {
 	};
 
 	const handleDeleteHigieneButton = async (id: string) => {
-		const response = await deleteHigiene(id);
+		await deleteHigiene(id);
 		setDeleteConfirmation(false);
 		setHigiene({} as Higiene);
-		getHigienes();
+		getHigienes([id]);
 	};
 
 	return (

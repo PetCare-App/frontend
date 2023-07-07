@@ -152,10 +152,14 @@ export function ProviderContext({ children }: any) {
 		}
 	};
 
-	const getHigienes = async () => {
+	const getHigienes = async (petIds: number[]) => {
 		try {
-			const response = await getHigienesService();
-			setHigienes(response.data);
+			const data = [];
+			for await (let id of petIds) {
+				const response = await getHigienesService(id);
+				data.push(...response.data);
+			}
+			setHigienes(data);
 		} catch (error) {
 			throw error;
 		}
@@ -222,10 +226,14 @@ export function ProviderContext({ children }: any) {
 		}
 	};
 
-	const getControleParasitarios = async () => {
+	const getControleParasitarios = async (petIds: number[]) => {
 		try {
-			const response = await getControleParasitariosService();
-			setControleParasitarios(response.data);
+			const data = [];
+			for await (let id of petIds) {
+				const response = await getControleParasitariosService(id);
+				data.push(...response.data);
+			}
+			setControleParasitarios(data);
 		} catch (error) {
 			throw error;
 		}
@@ -294,10 +302,14 @@ export function ProviderContext({ children }: any) {
 		}
 	};
 
-	const getVaccines = async () => {
+	const getVaccines = async (petIds: number[]) => {
 		try {
-			const response = await getVaccinesService();
-			setVaccines(response.data);
+			const data = [];
+			for await (let id of petIds) {
+				const response = await getVaccinesService(id);
+				data.push(...response.data);
+			}
+			setVaccines(data);
 		} catch (error) {
 			throw error;
 		}

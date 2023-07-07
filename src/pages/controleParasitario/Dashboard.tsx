@@ -19,6 +19,8 @@ import { ControleParasitario } from '../../types/controleParasitario';
 import { StartHere } from '../../components/startHere';
 import { dateFormat } from '../../utils/dateFormat';
 import SnackbarComponent from '../../components/snackbar/Snackbar';
+import { FilterByPet } from '../../components/FilterByPet';
+import { Pet } from '../../types/pets';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -40,7 +42,15 @@ export const Dashboard = ({
 
 	const fetchData = async () => {
 		setLoading(true);
-		await getControleParasitarios();
+		await getControleParasitarios(pets.map((pet: Pet) => pet.id));
+		setLoading(false);
+	};
+
+	const handleFilter = async (filter: number) => {
+		setLoading(true);
+		await getControleParasitarios(
+			filter !== 0 ? [filter] : pets.map((pet: Pet) => pet.id)
+		);
 		setLoading(false);
 	};
 
@@ -54,10 +64,11 @@ export const Dashboard = ({
 				sx={{
 					width: '100%',
 					display: 'flex',
-					justifyContent: 'flex-end',
+					justifyContent: 'space-between',
 					padding: '40px 0px',
 				}}
 			>
+				<FilterByPet handleFilter={handleFilter} />
 				<IconButton onClick={handleOpenCreateForm}>
 					<AddIcon sx={{ fontSize: '30px' }} />
 				</IconButton>
@@ -158,7 +169,9 @@ export const Dashboard = ({
 						}
 					)
 				) : !controleParasitarios.length && !loading ? (
-					<StartHere title={'Comece adicionando seu pet!'} />
+					<StartHere
+						title={'Comece adicionando seu registro de medicamento!'}
+					/>
 				) : (
 					<CircularProgress color='secondary' />
 				)}

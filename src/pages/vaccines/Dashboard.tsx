@@ -20,6 +20,7 @@ import { Pet } from '../../types/pets';
 import { StartHere } from '../../components/startHere';
 import SnackbarComponent from '../../components/snackbar/Snackbar';
 import { dateFormat } from '../../utils/dateFormat';
+import { FilterByPet } from '../../components/FilterByPet';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -32,13 +33,20 @@ export const Dashboard = ({
 	handleOpenEditForm,
 	handleOpenDeleteConfirmation,
 }: DashboardProps) => {
-	const { vaccines, getVaccines, pets, snackbarOpen } = usePetCareContext();
+	const { vaccines, getVaccines, pets, snackbarOpen, setVaccines } =
+		usePetCareContext();
 
 	const [loading, setLoading] = useState(false);
 
 	const fetchData = async () => {
 		setLoading(true);
-		await getVaccines();
+		await getVaccines(pets.map((pet: Pet) => pet.id));
+		setLoading(false);
+	};
+
+	const handleFilter = async (filter: number) => {
+		setLoading(true);
+		await getVaccines(filter !== 0 ? [filter] : pets.map((pet: Pet) => pet.id));
 		setLoading(false);
 	};
 
@@ -52,10 +60,11 @@ export const Dashboard = ({
 				sx={{
 					width: '100%',
 					display: 'flex',
-					justifyContent: 'flex-end',
+					justifyContent: 'space-between',
 					padding: '40px 0px',
 				}}
 			>
+				<FilterByPet handleFilter={handleFilter} />
 				<IconButton onClick={handleOpenCreateForm}>
 					<AddIcon sx={{ fontSize: '30px' }} />
 				</IconButton>
@@ -148,7 +157,7 @@ export const Dashboard = ({
 						);
 					})
 				) : !vaccines.length && !loading ? (
-					<StartHere title={'Comece adicionando seu pet!'} />
+					<StartHere title={'Comece adicionando seu registro de vacina!'} />
 				) : (
 					<CircularProgress color='secondary' />
 				)}

@@ -12,6 +12,6 @@ export const deleteVaccineService = async (id: any) => {
 	return await api.delete(`/vaccines/${id}`);
 };
 
-export const getVaccinesService = async () => {
-	return await api.get(`/vaccines`);
+export const getVaccinesService = async (id: number) => {
+	return await api.get(`/vaccines/pet/${id}`);
 };

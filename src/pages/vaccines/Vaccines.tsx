@@ -57,10 +57,10 @@ export const PetsVaccine = () => {
 	};
 
 	const handleDeleteVaccineButton = async (id: string) => {
-		const response = await deleteVaccine(id);
+		await deleteVaccine(id);
 		setDeleteConfirmation(false);
 		setVaccine({} as Vaccine);
-		getVaccines();
+		getVaccines([id]);
 	};
 
 	return (
