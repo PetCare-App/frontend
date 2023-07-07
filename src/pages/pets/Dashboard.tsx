@@ -11,8 +11,7 @@ import {
 	IconButton,
 	Avatar,
 	Stack,
-	Snackbar,
-	Alert,
+	CircularProgress,
 } from '@mui/material';
 import { Pet } from '../../types/pets';
 import AddIcon from '@mui/icons-material/Add';
@@ -41,8 +40,16 @@ export const Dashboard = ({
 }: DashboardProps) => {
 	const { pets, getPets, snackbarOpen } = usePetCareContext();
 
+	const [loading, setLoading] = useState(false);
+
+	const fetchData = async () => {
+		setLoading(true);
+		await getPets();
+		setLoading(false);
+	};
+
 	useEffect(() => {
-		getPets();
+		fetchData();
 	}, []);
 
 	const dateFormat = (date: any) => {
@@ -76,7 +83,7 @@ export const Dashboard = ({
 					alignItems: 'center',
 				}}
 			>
-				{!!pets.length ? (
+				{!!pets.length && !loading ? (
 					pets.map((pet: Pet) => {
 						return (
 							<Card
@@ -170,8 +177,10 @@ export const Dashboard = ({
 							</Card>
 						);
 					})
-				) : (
+				) : !pets.length && !loading ? (
 					<StartHere title={'Comece adicionando seu pet!'} />
+				) : (
+					<CircularProgress color='secondary' />
 				)}
 			</Container>
 			{!!snackbarOpen.status && <SnackbarComponent />}

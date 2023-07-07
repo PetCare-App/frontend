@@ -10,8 +10,7 @@ import {
 	Box,
 	IconButton,
 	Stack,
-	Snackbar,
-	Alert,
+	CircularProgress,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
@@ -19,6 +18,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ControleParasitario } from '../../types/controleParasitario';
 import { StartHere } from '../../components/startHere';
 import { dateFormat } from '../../utils/dateFormat';
+import SnackbarComponent from '../../components/snackbar/Snackbar';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -33,26 +33,19 @@ export const Dashboard = ({
 	handleOpenEditForm,
 	handleOpenDeleteConfirmation,
 }: DashboardProps) => {
-	const {
-		controleParasitarios,
-		getControleParasitarios,
-		pets,
-		successMessage,
-		setSuccessMessage,
-		deleteErrorMessage,
-		setDeleteErrorMessage,
-		setDeleteSuccessMessage,
-		deleteSuccessMessage,
-	} = usePetCareContext();
+	const { controleParasitarios, getControleParasitarios, pets, snackbarOpen } =
+		usePetCareContext();
 
-	const handleCloseSnackbar = () => {
-		setSuccessMessage(false);
-		setDeleteErrorMessage(false);
-		setDeleteSuccessMessage(false);
+	const [loading, setLoading] = useState(false);
+
+	const fetchData = async () => {
+		setLoading(true);
+		await getControleParasitarios();
+		setLoading(false);
 	};
 
 	useEffect(() => {
-		getControleParasitarios();
+		fetchData();
 	}, []);
 
 	return (
@@ -77,7 +70,7 @@ export const Dashboard = ({
 					alignItems: 'center',
 				}}
 			>
-				{!!controleParasitarios.length ? (
+				{!!controleParasitarios.length && !loading ? (
 					controleParasitarios.map(
 						(controleParasitario: ControleParasitario) => {
 							const pet = pets.find(
@@ -164,40 +157,13 @@ export const Dashboard = ({
 							);
 						}
 					)
+				) : !controleParasitarios.length && !loading ? (
+					<StartHere title={'Comece adicionando seu pet!'} />
 				) : (
-					<StartHere title={'Comece adicionando o medicamento!'} />
+					<CircularProgress color='secondary' />
 				)}
 			</Container>
-			{!!successMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!successMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Registro salvo com Sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!deleteSuccessMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!deleteSuccessMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Registro deletado com sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!deleteErrorMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!deleteErrorMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='error'>Error ao excluir registro!</Alert>
-				</Snackbar>
-			)}
+			{!!snackbarOpen.status && <SnackbarComponent />}
 		</>
 	);
 };

@@ -364,13 +364,13 @@ export function ProviderContext({ children }: any) {
 		}
 	};
 
-	const getPetPdf = async (id: any) => {
+	const getPetPdf = async (petData: Pet) => {
 		try {
-			const response = await getPetPdfService(id);
+			const response = await getPetPdfService(petData.id);
 			const url = URL.createObjectURL(response.data);
 			const link = document.createElement('a');
 			link.href = url;
-			link.setAttribute('download', 'arquivo.pdf');
+			link.setAttribute('download', `${petData.name}-relatorio.pdf`);
 			document.body.appendChild(link);
 			link.click();
 			document.body.removeChild(link);

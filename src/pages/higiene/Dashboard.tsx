@@ -10,8 +10,7 @@ import {
 	Box,
 	IconButton,
 	Stack,
-	Snackbar,
-	Alert,
+	CircularProgress,
 } from '@mui/material';
 import { Higiene } from '../../types/higiene';
 import AddIcon from '@mui/icons-material/Add';
@@ -34,8 +33,16 @@ export const Dashboard = ({
 }: DashboardProps) => {
 	const { higienes, getHigienes, pets, snackbarOpen } = usePetCareContext();
 
+	const [loading, setLoading] = useState(false);
+
+	const fetchData = async () => {
+		setLoading(true);
+		await getHigienes();
+		setLoading(false);
+	};
+
 	useEffect(() => {
-		getHigienes();
+		fetchData();
 	}, []);
 
 	return (
@@ -60,7 +67,7 @@ export const Dashboard = ({
 					alignItems: 'center',
 				}}
 			>
-				{!!higienes.length ? (
+				{!!higienes.length && !loading ? (
 					higienes.map((higiene: Higiene) => {
 						const pet = pets.find((pet: any) => pet.id === higiene.petId);
 						return (
@@ -139,8 +146,10 @@ export const Dashboard = ({
 							</Card>
 						);
 					})
+				) : !higienes.length && !loading ? (
+					<StartHere title={'Comece adicionando seu pet!'} />
 				) : (
-					<StartHere title={'Comece adicionando um serviço de higiene!'} />
+					<CircularProgress color='secondary' />
 				)}
 			</Container>
 			{!!snackbarOpen.status && <SnackbarComponent />}

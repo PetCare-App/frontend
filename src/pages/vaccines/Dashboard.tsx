@@ -10,10 +10,8 @@ import {
 	Box,
 	IconButton,
 	Stack,
-	Snackbar,
-	Alert,
+	CircularProgress,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -36,8 +34,16 @@ export const Dashboard = ({
 }: DashboardProps) => {
 	const { vaccines, getVaccines, pets, snackbarOpen } = usePetCareContext();
 
+	const [loading, setLoading] = useState(false);
+
+	const fetchData = async () => {
+		setLoading(true);
+		await getVaccines();
+		setLoading(false);
+	};
+
 	useEffect(() => {
-		getVaccines();
+		fetchData();
 	}, []);
 
 	return (
@@ -62,7 +68,7 @@ export const Dashboard = ({
 					alignItems: 'center',
 				}}
 			>
-				{!!vaccines.length ? (
+				{!!vaccines.length && !loading ? (
 					vaccines.map((vaccine: Vaccine) => {
 						const pet = pets.find((pet: Pet) => pet.id === vaccines.petId);
 						return (
@@ -141,8 +147,10 @@ export const Dashboard = ({
 							</Card>
 						);
 					})
+				) : !vaccines.length && !loading ? (
+					<StartHere title={'Comece adicionando seu pet!'} />
 				) : (
-					<StartHere title={'Comece adicionando uma vacina!'} />
+					<CircularProgress color='secondary' />
 				)}
 			</Container>
 			{!!snackbarOpen.status && <SnackbarComponent />}
