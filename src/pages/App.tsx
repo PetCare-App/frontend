@@ -1,6 +1,8 @@
 import {
 	Box,
 	IconButton,
+	ListItem,
+	ListItemButton,
 	Menu,
 	MenuItem,
 	Theme,
@@ -19,6 +21,9 @@ import { Users } from './users/Users';
 import { PetsHigiene } from './higiene/Higiene';
 import { PetsControleParasitario } from './controleParasitario/ControleParasitario';
 import { PetsVaccine } from './vaccines/Vaccines';
+import { Link } from 'react-router-dom';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Logo = styled('img')`
 	height: 60px;
@@ -141,6 +146,30 @@ function App() {
 										}}
 									>
 										Controle parasitário
+									</MenuItem>
+									<MenuItem>
+									<ListItemButton
+									style={{ display: 'flex', justifyContent: 'center' }}
+									component={Link}
+									to='/login'
+								>
+									{' '}
+									<IconButton
+										color='inherit'
+										aria-label='Logout'
+									>
+										<ExitToAppIcon />
+									</IconButton>
+									</ListItemButton>
+									<ListItem>
+									<ListItemButton
+										style={{ display: 'flex', justifyContent: 'center' }}
+										onClick={() => {setContent(6);
+														setMenuOpen(false);}}
+									>
+										<PersonIcon fontSize='large' />
+									</ListItemButton>
+									</ListItem>
 									</MenuItem>
 								</Menu>
 							)}
