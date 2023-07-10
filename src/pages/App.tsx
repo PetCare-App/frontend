@@ -164,7 +164,8 @@ function App() {
 									<ListItem>
 									<ListItemButton
 										style={{ display: 'flex', justifyContent: 'center' }}
-										onClick={() => setContent(6)}
+										onClick={() => {setContent(6);
+														setMenuOpen(false);}}
 									>
 										<PersonIcon fontSize='large' />
 									</ListItemButton>
