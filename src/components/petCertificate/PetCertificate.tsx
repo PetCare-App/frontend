@@ -8,6 +8,7 @@ import {
 	DialogActions,
 	DialogContent,
 	DialogTitle,
+	IconButton,
 	Modal,
 	Typography,
 } from '@mui/material';
@@ -159,15 +160,9 @@ const PetCertificate: React.FC<PetProps> = ({ pet }) => {
 
 	return (
 		<>
-			<Button
-				onClick={() => setShowImage(true)}
-				startIcon={<PhotoIcon />}
-				sx={{
-					color: 'grey',
-				}}
-			>
-				Certidão
-			</Button>
+			<IconButton onClick={() => setShowImage(true)}>
+				<PhotoIcon sx={{ fontSize: '25px', color: 'grey' }} />
+			</IconButton>
 			{showImage && (
 				<Dialog
 					open={showImage}

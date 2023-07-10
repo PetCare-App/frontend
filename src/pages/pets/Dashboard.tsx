@@ -90,7 +90,7 @@ export const Dashboard = ({
 								variant='outlined'
 								key={pet?.id}
 								sx={{
-									height: '250px',
+									height: '220px',
 									width: '200px',
 									marginBottom: '20px',
 									padding: '10px',
@@ -170,8 +170,6 @@ export const Dashboard = ({
 									<IconButton onClick={() => handlePdf(pet)}>
 										<PictureAsPdfIcon sx={{ fontSize: '25px' }} />
 									</IconButton>
-								</CardActions>
-								<CardActions>
 									<PetCertificate pet={pet} />
 								</CardActions>
 							</Card>
