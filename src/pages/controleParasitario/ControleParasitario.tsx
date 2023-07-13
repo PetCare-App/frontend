@@ -17,15 +17,13 @@ import { ControleParasitario } from '../../types/controleParasitario';
 
 export const PetsControleParasitario = () => {
 	const navigate = useNavigate();
-	const {
-		controleParasitarios,
-		getControleParasitarios,
-		deleteControleParasitario,
-	} = usePetCareContext();
+	const { getControleParasitarios, deleteControleParasitario, controleParasitarios } =
+		usePetCareContext();
 
 	const [isFormOpen, setOpenForm] = useState(false);
 	const [isCreate, setCreate] = useState(false);
 	const [isDeleteConfirmation, setDeleteConfirmation] = useState(false);
+	const [reloadPage, setReloadPage] = useState(false)
 
 	const [controleParasitario, setControleParasitario] = useState(
 		{} as ControleParasitario
@@ -38,6 +36,17 @@ export const PetsControleParasitario = () => {
 			? navigate('/controle-parasitario/edit')
 			: navigate('/controle-parasitario/dashboard');
 	}, [isFormOpen]);
+
+	useEffect(() => {
+		if(!!reloadPage) {
+			const filteredlist = controleParasitarios.filter((controle: any) => controle.id !== controleParasitario.id)
+
+			const filteredData = filteredlist.map((data: any) => data.petId)
+			getControleParasitarios(filteredData); 
+			setReloadPage(false)
+	}
+	
+	}, [reloadPage])
 
 	const handleOpenCreateForm = () => {
 		setControleParasitario({} as ControleParasitario);
@@ -65,10 +74,10 @@ export const PetsControleParasitario = () => {
 	};
 
 	const handleDeleteControleParasitarioButton = async (id: string) => {
-		const response = await deleteControleParasitario(id);
+		await deleteControleParasitario(id);
 		setDeleteConfirmation(false);
-		setControleParasitario({} as ControleParasitario);
-		getControleParasitarios();
+		setControleParasitario({...controleParasitario, id: id})
+		setReloadPage(true)
 	};
 
 	return (

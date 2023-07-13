@@ -7,7 +7,6 @@ import { Login } from './pages/login/Login';
 import { ProviderContext } from './context';
 import { Signup } from './pages/signup/Signup';
 import LandingPage from './pages/landingPage/LandingPage';
-import PetCertificate from './components/petCertificate/PetCertificate';
 
 const router = createBrowserRouter([
 	{

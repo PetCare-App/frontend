@@ -18,6 +18,6 @@ export const deleteControleParasitarioService = async (id: any) => {
 	return await api.delete(`/parasite-control/${id}`);
 };
 
-export const getControleParasitariosService = async () => {
-	return await api.get(`/parasite-control/`);
+export const getControleParasitariosService = async (id: number) => {
+	return await api.get(`/parasite-control/pet/${id}`);
 };

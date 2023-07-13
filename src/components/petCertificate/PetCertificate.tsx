@@ -8,6 +8,7 @@ import {
 	DialogActions,
 	DialogContent,
 	DialogTitle,
+	IconButton,
 	Modal,
 	Typography,
 } from '@mui/material';
@@ -16,23 +17,15 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import PhotoIcon from '@mui/icons-material/Photo';
 import PawPurple from './../../assets/paw-heart-purple.svg';
 import PetCareLogo from './../../assets/logo.png';
+import { dateFormat } from '../../utils/dateFormat';
 
 interface PetProps {
-	pet?: Pet;
+	pet: Pet;
 }
 
 const PetCertificate: React.FC<PetProps> = ({ pet }) => {
 	const imageRef = useRef<HTMLDivElement>();
 	const [showImage, setShowImage] = useState(false);
-
-	const dateFormat = (date: any) => {
-		const deleteTimestamp = date?.split('T')[0];
-		const day = deleteTimestamp.split('-')[2];
-		const month = deleteTimestamp.split('-')[1];
-		const year = deleteTimestamp.split('-')[0];
-
-		return `${day}/${month}/${year}`;
-	};
 
 	const exportImage = () => {
 		if (imageRef.current) {
@@ -152,9 +145,9 @@ const PetCertificate: React.FC<PetProps> = ({ pet }) => {
 								Peso: <span style={{ fontWeight: 700 }}>{pet?.weight} kg </span>
 							</Typography>
 							<Typography variant='body1'>
-								Data de nascimento:{' '}
+								Data de nascimento:
 								<span style={{ fontWeight: 700 }}>
-									{dateFormat(pet?.birthDate)}{' '}
+									{dateFormat(pet.birthDate)}
 								</span>
 							</Typography>
 						</Box>
@@ -167,15 +160,9 @@ const PetCertificate: React.FC<PetProps> = ({ pet }) => {
 
 	return (
 		<>
-			<Button
-				onClick={() => setShowImage(true)}
-				startIcon={<PhotoIcon />}
-				sx={{
-					color: 'grey',
-				}}
-			>
-				Certidão
-			</Button>
+			<IconButton onClick={() => setShowImage(true)}>
+				<PhotoIcon sx={{ fontSize: '25px', color: 'grey' }} />
+			</IconButton>
 			{showImage && (
 				<Dialog
 					open={showImage}

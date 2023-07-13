@@ -10,13 +10,17 @@ import {
 	Box,
 	IconButton,
 	Stack,
-	Snackbar,
-	Alert,
+	CircularProgress,
 } from '@mui/material';
 import { Higiene } from '../../types/higiene';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { StartHere } from '../../components/startHere';
+import SnackbarComponent from '../../components/snackbar/Snackbar';
+import { dateFormat } from '../../utils/dateFormat';
+import { Pet } from '../../types/pets';
+import { FilterByPet } from '../../components/FilterByPet';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -29,36 +33,25 @@ export const Dashboard = ({
 	handleOpenEditForm,
 	handleOpenDeleteConfirmation,
 }: DashboardProps) => {
-	const {
-		higienes,
-		getHigienes,
-		pets,
-		successMessage,
-		setSuccessMessage,
-		deleteErrorMessage,
-		setDeleteErrorMessage,
-		deleteSuccessMessage,
-		setDeleteSuccessMessage,
-	} = usePetCareContext();
+	const { higienes, getHigienes, pets, snackbarOpen } = usePetCareContext();
 
-	const handleCloseSnackbar = () => {
-		setSuccessMessage(false);
-		setDeleteErrorMessage(false);
-		setDeleteSuccessMessage(false);
+	const [loading, setLoading] = useState(false);
+
+	const fetchData = async () => {
+		setLoading(true);
+		await getHigienes(pets.map((pet: Pet) => pet.id));
+		setLoading(false);
+	};
+
+	const handleFilter = async (filter: number) => {
+		setLoading(true);
+		await getHigienes(filter !== 0 ? [filter] : pets.map((pet: Pet) => pet.id));
+		setLoading(false);
 	};
 
 	useEffect(() => {
-		getHigienes();
+		fetchData();
 	}, []);
-
-	const dateFormat = (date: any) => {
-		const deleteTimestamp = date?.split('T')[0];
-		const day = deleteTimestamp.split('-')[2];
-		const month = deleteTimestamp.split('-')[1];
-		const year = deleteTimestamp.split('-')[0];
-
-		return `${day}/${month}/${year}`;
-	};
 
 	return (
 		<>
@@ -66,10 +59,11 @@ export const Dashboard = ({
 				sx={{
 					width: '100%',
 					display: 'flex',
-					justifyContent: 'flex-end',
+					justifyContent: 'space-between',
 					padding: '40px 0px',
 				}}
 			>
+				<FilterByPet handleFilter={handleFilter} />
 				<IconButton onClick={handleOpenCreateForm}>
 					<AddIcon sx={{ fontSize: '30px' }} />
 				</IconButton>
@@ -82,7 +76,7 @@ export const Dashboard = ({
 					alignItems: 'center',
 				}}
 			>
-				{!!higienes.length &&
+				{!!higienes.length && !loading ? (
 					higienes.map((higiene: Higiene) => {
 						const pet = pets.find((pet: any) => pet.id === higiene.petId);
 						return (
@@ -137,7 +131,7 @@ export const Dashboard = ({
 											sx={{ fontSize: 15 }}
 											color='text.primary'
 										>
-											{`Data: ${dateFormat(higiene?.date)}`}
+											{`Data: ${dateFormat(higiene.date)}`}
 										</Typography>
 									</Stack>
 								</CardContent>
@@ -160,39 +154,14 @@ export const Dashboard = ({
 								</CardActions>
 							</Card>
 						);
-					})}
+					})
+				) : !higienes.length && !loading ? (
+					<StartHere title={'Comece adicionando seu registro de higiene!'} />
+				) : (
+					<CircularProgress color='secondary' />
+				)}
 			</Container>
-			{!!successMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					// key={{ vertical: "top", horizontal: "right" }}
-					open={!!successMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Registro Salvo com Sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!deleteSuccessMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!deleteSuccessMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Higiene deletada com sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!deleteErrorMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!deleteErrorMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='error'>Error ao excluir higiene!</Alert>
-				</Snackbar>
-			)}
+			{!!snackbarOpen.status && <SnackbarComponent />}
 		</>
 	);
 };

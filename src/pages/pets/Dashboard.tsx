@@ -11,8 +11,7 @@ import {
 	IconButton,
 	Avatar,
 	Stack,
-	Snackbar,
-	Alert,
+	CircularProgress,
 } from '@mui/material';
 import { Pet } from '../../types/pets';
 import AddIcon from '@mui/icons-material/Add';
@@ -23,6 +22,8 @@ import Paw from './../../assets/paw.png';
 import Dog from './../../assets/dog.png';
 import Cat from './../../assets/cat.png';
 import PetCertificate from '../../components/petCertificate/PetCertificate';
+import { StartHere } from '../../components/startHere';
+import SnackbarComponent from '../../components/snackbar/Snackbar';
 
 interface DashboardProps {
 	handleOpenCreateForm: () => void;
@@ -37,26 +38,19 @@ export const Dashboard = ({
 	handleOpenEditForm,
 	handleOpenDeleteConfirmation,
 }: DashboardProps) => {
-	const {
-		pets,
-		getPets,
-		successMessage,
-		setSuccessMessage,
-		deleteErrorMessage,
-		setDeleteErrorMessage,
-		deleteSuccessMessage,
-		setDeleteSuccessMessage,
-	} = usePetCareContext();
+	const { pets, getPets, snackbarOpen } = usePetCareContext();
+
+	const [loading, setLoading] = useState(false);
+
+	const fetchData = async () => {
+		setLoading(true);
+		await getPets();
+		setLoading(false);
+	};
 
 	useEffect(() => {
-		getPets();
+		fetchData();
 	}, []);
-
-	const handleCloseSnackbar = () => {
-		setSuccessMessage(false);
-		setDeleteErrorMessage(false);
-		setDeleteSuccessMessage(false);
-	};
 
 	const dateFormat = (date: any) => {
 		const deleteTimestamp = date?.split('T')[0];
@@ -89,14 +83,14 @@ export const Dashboard = ({
 					alignItems: 'center',
 				}}
 			>
-				{!!pets.length &&
+				{!!pets.length && !loading ? (
 					pets.map((pet: Pet) => {
 						return (
 							<Card
 								variant='outlined'
 								key={pet?.id}
 								sx={{
-									height: '250px',
+									height: '220px',
 									width: '200px',
 									marginBottom: '20px',
 									padding: '10px',
@@ -176,45 +170,18 @@ export const Dashboard = ({
 									<IconButton onClick={() => handlePdf(pet)}>
 										<PictureAsPdfIcon sx={{ fontSize: '25px' }} />
 									</IconButton>
-								</CardActions>
-								<CardActions>
 									<PetCertificate pet={pet} />
 								</CardActions>
 							</Card>
 						);
-					})}
+					})
+				) : !pets.length && !loading ? (
+					<StartHere title={'Comece adicionando seu pet!'} />
+				) : (
+					<CircularProgress color='secondary' />
+				)}
 			</Container>
-			{!!successMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					// key={{ vertical: "top", horizontal: "right" }}
-					open={!!successMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Registro Salvo com Sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!deleteSuccessMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!deleteSuccessMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='success'>Pet deletado com sucesso!</Alert>
-				</Snackbar>
-			)}
-			{!!deleteErrorMessage && (
-				<Snackbar
-					anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-					open={!!deleteErrorMessage}
-					autoHideDuration={3000}
-					onClose={handleCloseSnackbar}
-				>
-					<Alert severity='error'>Error ao excluir pet!</Alert>
-				</Snackbar>
-			)}
+			{!!snackbarOpen.status && <SnackbarComponent />}
 		</>
 	);
 };
